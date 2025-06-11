@@ -43,6 +43,7 @@
             this.UpdateCombo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.UpdateLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.PanelMonitoramento_Config = new Guna.UI2.WinForms.Guna2Panel();
+            this.GRAFICOS_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.NomeHardware_Button = new Guna.UI2.WinForms.Guna2CheckBox();
             this.RAM_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.CONSCPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
@@ -58,7 +59,6 @@
             this.SCor_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ColorWheel_Button = new Guna.UI2.WinForms.Guna2Button();
             this.CoresAlerta_Check = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.GRAFICOS_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.PanelGeral_Config.SuspendLayout();
             this.PanelMonitoramento_Config.SuspendLayout();
             this.SuspendLayout();
@@ -266,6 +266,26 @@
             this.PanelMonitoramento_Config.Name = "PanelMonitoramento_Config";
             this.PanelMonitoramento_Config.Size = new System.Drawing.Size(320, 288);
             this.PanelMonitoramento_Config.TabIndex = 13;
+            // 
+            // GRAFICOS_CHECK
+            // 
+            this.GRAFICOS_CHECK.AutoSize = true;
+            this.GRAFICOS_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.GRAFICOS_CHECK.CheckedState.BorderRadius = 0;
+            this.GRAFICOS_CHECK.CheckedState.BorderThickness = 0;
+            this.GRAFICOS_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.GRAFICOS_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GRAFICOS_CHECK.ForeColor = System.Drawing.Color.White;
+            this.GRAFICOS_CHECK.Location = new System.Drawing.Point(192, 206);
+            this.GRAFICOS_CHECK.Name = "GRAFICOS_CHECK";
+            this.GRAFICOS_CHECK.Size = new System.Drawing.Size(94, 20);
+            this.GRAFICOS_CHECK.TabIndex = 17;
+            this.GRAFICOS_CHECK.Text = "GRÁFICOS";
+            this.GRAFICOS_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.GRAFICOS_CHECK.UncheckedState.BorderRadius = 0;
+            this.GRAFICOS_CHECK.UncheckedState.BorderThickness = 0;
+            this.GRAFICOS_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.GRAFICOS_CHECK.CheckedChanged += new System.EventHandler(this.GRAFICOS_CHECK_CheckedChanged);
             // 
             // NomeHardware_Button
             // 
@@ -551,26 +571,6 @@
             this.CoresAlerta_Check.UncheckedState.BorderThickness = 0;
             this.CoresAlerta_Check.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CoresAlerta_Check.CheckedChanged += new System.EventHandler(this.CoresAlerta_Check_CheckedChanged);
-            // 
-            // GRAFICOS_CHECK
-            // 
-            this.GRAFICOS_CHECK.AutoSize = true;
-            this.GRAFICOS_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.GRAFICOS_CHECK.CheckedState.BorderRadius = 0;
-            this.GRAFICOS_CHECK.CheckedState.BorderThickness = 0;
-            this.GRAFICOS_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.GRAFICOS_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GRAFICOS_CHECK.ForeColor = System.Drawing.Color.White;
-            this.GRAFICOS_CHECK.Location = new System.Drawing.Point(192, 206);
-            this.GRAFICOS_CHECK.Name = "GRAFICOS_CHECK";
-            this.GRAFICOS_CHECK.Size = new System.Drawing.Size(94, 20);
-            this.GRAFICOS_CHECK.TabIndex = 17;
-            this.GRAFICOS_CHECK.Text = "GRÁFICOS";
-            this.GRAFICOS_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.GRAFICOS_CHECK.UncheckedState.BorderRadius = 0;
-            this.GRAFICOS_CHECK.UncheckedState.BorderThickness = 0;
-            this.GRAFICOS_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.GRAFICOS_CHECK.CheckedChanged += new System.EventHandler(this.GRAFICOS_CHECK_CheckedChanged);
             // 
             // Config
             // 

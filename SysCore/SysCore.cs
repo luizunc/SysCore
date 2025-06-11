@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using System.Management;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using NHotkey;
-using NHotkey.WindowsForms;
+using OpenHardwareMonitor.Hardware;
 
 namespace SysCore
 {
@@ -23,6 +22,7 @@ namespace SysCore
         private PerformanceCounter statusdiskWrite;
         private OverlayForm overlayForm;
         private Config configForm;
+        private Computer computer;
 
         [DllImport("gdi32.dll")]
         private static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, IntPtr lpInitData);
@@ -131,6 +131,17 @@ namespace SysCore
             RamPG_Circle.FillColor = Color.Green;
             GpuPG_Circle.FillColor = Color.Green;
             overlayForm = new OverlayForm(configForm);
+
+            computer = new Computer
+            {
+                CPUEnabled = true,
+                GPUEnabled = true,
+                RAMEnabled = true,
+                MainboardEnabled = false,
+                FanControllerEnabled = false,
+                HDDEnabled = false
+            };
+            computer.Open();
         }
 
         private void guna2ImageButton1_Click(object sender, EventArgs e)
@@ -185,18 +196,33 @@ namespace SysCore
 
         private void update_cpu()
         {
-            try
+            float cpuUsage = 0, cpuTemp = 0, cpuClock = 0, cpuPower = 0;
+            foreach (IHardware hardware in computer.Hardware)
             {
-                float usage = statuscpu.NextValue();
-                int value = (int)Math.Min(usage, 100);
-                CpuPG_Circle.Value = value;
-                CpuPG_Circle.Text = $"{value}%";
-                CpuPG_Circle.ProgressColor = Color.Red;
-                CpuPG_Circle.ProgressColor2 = Color.Red;
-                CpuPG_Circle.FillColor = Color.Green;
-                CpuPG_Circle.Invalidate();
+                if (hardware.HardwareType == HardwareType.CPU)
+                {
+                    hardware.Update();
+                    foreach (ISensor sensor in hardware.Sensors)
+                    {
+                        if (sensor.SensorType == SensorType.Load && sensor.Name.ToLower().Contains("total") && sensor.Value.HasValue)
+                            cpuUsage = sensor.Value.Value;
+                        else if (sensor.SensorType == SensorType.Temperature && sensor.Value.HasValue)
+                            cpuTemp = sensor.Value.Value;
+                        else if (sensor.SensorType == SensorType.Clock && sensor.Value.HasValue)
+                            cpuClock = Math.Max(cpuClock, sensor.Value.Value / 1000f); // GHz
+                        else if (sensor.SensorType == SensorType.Power && sensor.Value.HasValue)
+                            cpuPower = sensor.Value.Value;
+                    }
+                }
             }
-            catch { CpuPG_Circle.Value = 0; CpuPG_Circle.Text = "0%"; }
+            int value = (int)Math.Min(cpuUsage, 100);
+            CpuPG_Circle.Value = value;
+            CpuPG_Circle.Text = $"{value}%";
+            CpuPG_Circle.ProgressColor = Color.Red;
+            CpuPG_Circle.ProgressColor2 = Color.Red;
+            CpuPG_Circle.FillColor = Color.Green;
+            CpuPG_Circle.Invalidate();
+            // Aqui você pode atualizar labels de temperatura, clock e consumo se desejar
         }
 
         private void update_ram()
@@ -245,6 +271,38 @@ namespace SysCore
             catch { DiskPG_Circle.Value = 0; DiskPG_Circle.Text = "0 MB/s"; }
         }
 
+        private void update_gpu()
+        {
+            float gpuUsage = 0, gpuTemp = 0, gpuPower = 0;
+            foreach (IHardware hardware in computer.Hardware)
+            {
+                if (hardware.HardwareType == HardwareType.GpuNvidia || hardware.HardwareType == HardwareType.GpuAti)
+                {
+                    hardware.Update();
+                    foreach (ISensor sensor in hardware.Sensors)
+                    {
+                        if (sensor.SensorType == SensorType.Load && sensor.Name.ToLower().Contains("core") && sensor.Value.HasValue)
+                            gpuUsage = sensor.Value.Value;
+                        else if (sensor.SensorType == SensorType.Temperature && sensor.Value.HasValue)
+                            gpuTemp = sensor.Value.Value;
+                        else if (sensor.SensorType == SensorType.Power && sensor.Value.HasValue)
+                            gpuPower = sensor.Value.Value;
+                    }
+                }
+            }
+            int percent = (int)Math.Min(gpuUsage, 100);
+            GpuPG_Circle.Value = percent;
+            GpuPG_Circle.Text = $"{percent}%";
+            GpuPG_Circle.ProgressColor = Color.Red;
+            GpuPG_Circle.ProgressColor2 = Color.Red;
+            GpuPG_Circle.FillColor = Color.Green;
+            GpuPG_Circle.ShowText = true;
+            GpuPG_Circle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            GpuPG_Circle.ForeColor = Color.White;
+            GpuPG_Circle.Invalidate();
+            // Aqui você pode atualizar labels de temperatura e consumo se desejar
+        }
+
         private float GetGpuUsageDxgi()
         {
             try
@@ -268,25 +326,6 @@ namespace SysCore
             {
                 return 0;
             }
-        }
-
-        private void update_gpu()
-        {
-            try
-            {
-                float gpuUsage = GetGpuUsageDxgi();
-                int percent = (int)Math.Min(gpuUsage, 100);
-                GpuPG_Circle.Value = percent;
-                GpuPG_Circle.Text = $"{percent}%";
-                GpuPG_Circle.ProgressColor = Color.Red;
-                GpuPG_Circle.ProgressColor2 = Color.Red;
-                GpuPG_Circle.FillColor = Color.Green;
-                GpuPG_Circle.ShowText = true;
-                GpuPG_Circle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
-                GpuPG_Circle.ForeColor = Color.White;
-                GpuPG_Circle.Invalidate();
-            }
-            catch { GpuPG_Circle.Value = 0; GpuPG_Circle.Text = "N/A"; }
         }
 
         private void PainelGeral_Painel_Paint(object sender, PaintEventArgs e)

@@ -104,11 +104,13 @@ namespace SysCore
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GraphPanel));
             this.SuspendLayout();
             // 
             // GraphPanel
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GraphPanel";
             this.ResumeLayout(false);
 

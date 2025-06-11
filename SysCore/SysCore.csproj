@@ -66,20 +66,14 @@
     <Reference Include="Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.7\lib\net48\Guna.UI2.dll</HintPath>
     </Reference>
+    <Reference Include="HidLibrary, Version=3.2.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\hidlibrary.3.2.46.0\lib\HidLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="HidSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HidSharp.2.1.0\lib\net35\HidSharp.dll</HintPath>
     </Reference>
-    <Reference Include="LibreHardwareMonitorLib, Version=0.9.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LibreHardwareMonitorLib.0.9.4\lib\net472\LibreHardwareMonitorLib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
-    </Reference>
-    <Reference Include="NHotkey, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a76ffb086700b11c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHotkey.3.0.0\lib\net462\NHotkey.dll</HintPath>
-    </Reference>
-    <Reference Include="NHotkey.WindowsForms, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a76ffb086700b11c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHotkey.WindowsForms.3.0.0\lib\net462\NHotkey.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="OpenHardwareMonitorLib, Version=0.9.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenHardwareMonitor.0.9.6\lib\net45\OpenHardwareMonitorLib.dll</HintPath>
@@ -140,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GraphPanel.resx">
       <DependentUpon>GraphPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OverlayForm.resx">
+      <DependentUpon>OverlayForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SysCore.resx">
       <DependentUpon>SysCore.cs</DependentUpon>

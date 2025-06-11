@@ -298,4 +298,4 @@ namespace SysCore
             try { computer.Close(); } catch { }
         }
     }
-} 
+}
