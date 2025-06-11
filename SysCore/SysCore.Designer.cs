@@ -98,10 +98,10 @@
             this.SysCoreLogo_Form.ImageOffset = new System.Drawing.Point(0, 0);
             this.SysCoreLogo_Form.ImageRotate = 0F;
             this.SysCoreLogo_Form.ImageSize = new System.Drawing.Size(75, 75);
-            this.SysCoreLogo_Form.Location = new System.Drawing.Point(12, 12);
+            this.SysCoreLogo_Form.Location = new System.Drawing.Point(22, 12);
             this.SysCoreLogo_Form.Name = "SysCoreLogo_Form";
             this.SysCoreLogo_Form.PressedState.ImageSize = new System.Drawing.Size(75, 75);
-            this.SysCoreLogo_Form.Size = new System.Drawing.Size(75, 75);
+            this.SysCoreLogo_Form.Size = new System.Drawing.Size(65, 59);
             this.SysCoreLogo_Form.TabIndex = 2;
             this.SysCoreLogo_Form.Click += new System.EventHandler(this.guna2ImageButton1_Click_2);
             // 
@@ -265,7 +265,7 @@
             this.GeralLogo.ImageOffset = new System.Drawing.Point(0, 0);
             this.GeralLogo.ImageRotate = 0F;
             this.GeralLogo.ImageSize = new System.Drawing.Size(35, 35);
-            this.GeralLogo.Location = new System.Drawing.Point(26, 93);
+            this.GeralLogo.Location = new System.Drawing.Point(30, 93);
             this.GeralLogo.Name = "GeralLogo";
             this.GeralLogo.PressedState.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
             this.GeralLogo.PressedState.ImageSize = new System.Drawing.Size(35, 35);

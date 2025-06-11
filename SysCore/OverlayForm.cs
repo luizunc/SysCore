@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenHardwareMonitor.Hardware;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace SysCore
 {
-    public class OverlayForm : Form
+    public partial class OverlayForm : Form
     {
         private Timer updateTimer;
         private float cpuUsage, cpuTemp, cpuClock, cpuPower;
@@ -28,6 +29,28 @@ namespace SysCore
         private bool showRAM;
         private GraphPanel graphPanel;
         private bool showGraph = false;
+        private Color overlayBackgroundColor = Color.Transparent;
+        private bool showOverlayBackground = false;
+
+        [DllImport("user32.dll")]
+        public static extern int SetLayeredWindowAttributes(IntPtr hwnd, int crKey, byte bAlpha, int dwFlags);
+        const int LWA_COLORKEY = 0x1;
+        const int LWA_ALPHA = 0x2;
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x80000; // WS_EX_LAYERED
+                return cp;
+            }
+        }
+
+        public void SetOverlayAlpha(byte alpha)
+        {
+            SetLayeredWindowAttributes(this.Handle, 0, alpha, LWA_ALPHA);
+        }
 
         public OverlayForm(Config config)
         {
@@ -36,7 +59,14 @@ namespace SysCore
             InitializeHardwareMonitor();
             StartMonitoring();
             configForm = config;
-            configForm.ColorChanged += (s, color) => { this.Invalidate(); };
+            configForm.ColorChanged += (s, color) => {
+                overlayBackgroundColor = color;
+                this.Invalidate();
+            };
+            configForm.BackgroundColorChanged += (s, enabled) => {
+                showOverlayBackground = enabled;
+                this.Invalidate();
+            };
             configForm.CoresAlertaChanged += (s, enabled) => { alertColorsEnabled = enabled; this.Invalidate(); };
             configForm.NomeHardwareChanged += (s, enabled) => { showHardwareName = enabled; this.Invalidate(); };
             configForm.MonitoramentoSelectionChanged += (s, sel) => {
@@ -89,10 +119,10 @@ namespace SysCore
             this.ShowInTaskbar = false;
             this.BackColor = Color.Black;
             this.TransparencyKey = Color.Black;
-            this.Size = new Size(320, 370);
+            this.Size = new Size(280, 300);
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(0, 0);
-            overlayFont = new Font("Consolas", 16, FontStyle.Bold);
+            overlayFont = new Font("Segoe UI", 14, FontStyle.Bold);
 
             updateTimer = new Timer();
             updateTimer.Interval = 1000;
@@ -236,6 +266,13 @@ namespace SysCore
         {
             base.OnPaint(e);
             var g = e.Graphics;
+            if (showOverlayBackground)
+            {
+                using (var brush = new SolidBrush(overlayBackgroundColor))
+                {
+                    g.FillRectangle(brush, this.ClientRectangle);
+                }
+            }
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             int y = 10;
             int leftPad = 10;

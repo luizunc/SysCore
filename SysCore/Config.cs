@@ -18,6 +18,8 @@ namespace SysCore
         public event EventHandler<bool> NomeHardwareChanged;
         public event EventHandler<MonitoramentoSelection> MonitoramentoSelectionChanged;
         public event EventHandler<bool> GraficosChanged;
+        public event EventHandler<Color> DeviceNameColorChanged;
+        public event EventHandler<bool> BackgroundColorChanged;
 
         public class MonitoramentoSelection : EventArgs
         {
@@ -29,6 +31,8 @@ namespace SysCore
         public Config()
         {
             InitializeComponent();
+            SelectColor_Label.Visible = false;
+            ButonColorWheel.Visible = false;
         }
 
         private void Config_Load(object sender, EventArgs e)
@@ -36,7 +40,6 @@ namespace SysCore
             GeralButton.Checked = true;
             PanelGeral_Config.Visible = true;
             PanelMonitoramento_Config.Visible = false;
-            ColorWheel_Button.FillColor = SelectedColor;
         }
 
         private void Geral_Click(object sender, EventArgs e)
@@ -78,9 +81,8 @@ namespace SysCore
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     SelectedColor = dlg.Color;
-                    ColorWheel_Button.FillColor = SelectedColor;
-                    // Notifica a overlay sobre a mudança de cor
-                    ColorChanged?.Invoke(this, SelectedColor);
+                    // Notifica apenas a mudança de cor dos nomes dos dispositivos
+                    DeviceNameColorChanged?.Invoke(this, SelectedColor);
                 }
             }
         }
@@ -128,5 +130,47 @@ namespace SysCore
         {
             GraficosChanged?.Invoke(this, GRAFICOS_CHECK.Checked);
         }
+
+        private void SCor_Label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackgroundColor_Check_CheckedChanged(object sender, EventArgs e)
+        {
+            ButonColorWheel.Visible = BackgroundColor_Check.Checked;
+            SelectColor_Label.Visible = BackgroundColor_Check.Checked;
+            BackgroundColorChanged?.Invoke(this, BackgroundColor_Check.Checked);
+        }
+
+        private void ButonColorWheel_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog dlg = new ColorDialog())
+            {
+                dlg.Color = SelectedColor;
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    SelectedColor = dlg.Color;
+                    ButonColorWheel.FillColor = SelectedColor;
+                    ColorChanged?.Invoke(this, SelectedColor);
+                }
+            }
+        }
+
+        private void SelectColor_Label_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog dlg = new ColorDialog())
+            {
+                dlg.Color = SelectedColor;
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    SelectedColor = dlg.Color;
+                    // Não preencher o fundo do label
+                    ColorChanged?.Invoke(this, SelectedColor);
+                }
+            }
+        }
+
+        public bool IsBackgroundColorChecked => BackgroundColor_Check.Checked;
     }
 }

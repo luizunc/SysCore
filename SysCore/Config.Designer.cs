@@ -43,6 +43,9 @@
             this.UpdateCombo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.UpdateLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.PanelMonitoramento_Config = new Guna.UI2.WinForms.Guna2Panel();
+            this.SelectColor_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.ButonColorWheel = new Guna.UI2.WinForms.Guna2Button();
+            this.BackgroundColor_Check = new Guna.UI2.WinForms.Guna2CheckBox();
             this.GRAFICOS_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.NomeHardware_Button = new Guna.UI2.WinForms.Guna2CheckBox();
             this.RAM_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
@@ -56,8 +59,6 @@
             this.VRAM_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.USOGPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.GPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.SCor_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.ColorWheel_Button = new Guna.UI2.WinForms.Guna2Button();
             this.CoresAlerta_Check = new Guna.UI2.WinForms.Guna2CheckBox();
             this.PanelGeral_Config.SuspendLayout();
             this.PanelMonitoramento_Config.SuspendLayout();
@@ -246,6 +247,9 @@
             // 
             // PanelMonitoramento_Config
             // 
+            this.PanelMonitoramento_Config.Controls.Add(this.SelectColor_Label);
+            this.PanelMonitoramento_Config.Controls.Add(this.ButonColorWheel);
+            this.PanelMonitoramento_Config.Controls.Add(this.BackgroundColor_Check);
             this.PanelMonitoramento_Config.Controls.Add(this.GRAFICOS_CHECK);
             this.PanelMonitoramento_Config.Controls.Add(this.NomeHardware_Button);
             this.PanelMonitoramento_Config.Controls.Add(this.RAM_CHECK);
@@ -259,13 +263,58 @@
             this.PanelMonitoramento_Config.Controls.Add(this.VRAM_CHECK);
             this.PanelMonitoramento_Config.Controls.Add(this.USOGPU_CHECK);
             this.PanelMonitoramento_Config.Controls.Add(this.GPU_CHECK);
-            this.PanelMonitoramento_Config.Controls.Add(this.SCor_Label);
-            this.PanelMonitoramento_Config.Controls.Add(this.ColorWheel_Button);
             this.PanelMonitoramento_Config.Controls.Add(this.CoresAlerta_Check);
             this.PanelMonitoramento_Config.Location = new System.Drawing.Point(168, 50);
             this.PanelMonitoramento_Config.Name = "PanelMonitoramento_Config";
             this.PanelMonitoramento_Config.Size = new System.Drawing.Size(320, 288);
             this.PanelMonitoramento_Config.TabIndex = 13;
+            // 
+            // SelectColor_Label
+            // 
+            this.SelectColor_Label.BackColor = System.Drawing.Color.Transparent;
+            this.SelectColor_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SelectColor_Label.ForeColor = System.Drawing.Color.White;
+            this.SelectColor_Label.Location = new System.Drawing.Point(210, 25);
+            this.SelectColor_Label.Name = "SelectColor_Label";
+            this.SelectColor_Label.Size = new System.Drawing.Size(92, 18);
+            this.SelectColor_Label.TabIndex = 21;
+            this.SelectColor_Label.Text = "Selecionar Cor";
+            this.SelectColor_Label.Click += new System.EventHandler(this.SelectColor_Label_Click);
+            // 
+            // ButonColorWheel
+            // 
+            this.ButonColorWheel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.ButonColorWheel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.ButonColorWheel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.ButonColorWheel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.ButonColorWheel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.ButonColorWheel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ButonColorWheel.ForeColor = System.Drawing.Color.White;
+            this.ButonColorWheel.Location = new System.Drawing.Point(192, 27);
+            this.ButonColorWheel.Name = "ButonColorWheel";
+            this.ButonColorWheel.Size = new System.Drawing.Size(15, 15);
+            this.ButonColorWheel.TabIndex = 20;
+            this.ButonColorWheel.Click += new System.EventHandler(this.ButonColorWheel_Click);
+            // 
+            // BackgroundColor_Check
+            // 
+            this.BackgroundColor_Check.AutoSize = true;
+            this.BackgroundColor_Check.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.BackgroundColor_Check.CheckedState.BorderRadius = 0;
+            this.BackgroundColor_Check.CheckedState.BorderThickness = 0;
+            this.BackgroundColor_Check.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.BackgroundColor_Check.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackgroundColor_Check.ForeColor = System.Drawing.Color.White;
+            this.BackgroundColor_Check.Location = new System.Drawing.Point(192, -1);
+            this.BackgroundColor_Check.Name = "BackgroundColor_Check";
+            this.BackgroundColor_Check.Size = new System.Drawing.Size(107, 20);
+            this.BackgroundColor_Check.TabIndex = 18;
+            this.BackgroundColor_Check.Text = "Cor de Fundo";
+            this.BackgroundColor_Check.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.BackgroundColor_Check.UncheckedState.BorderRadius = 0;
+            this.BackgroundColor_Check.UncheckedState.BorderThickness = 0;
+            this.BackgroundColor_Check.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.BackgroundColor_Check.CheckedChanged += new System.EventHandler(this.BackgroundColor_Check_CheckedChanged);
             // 
             // GRAFICOS_CHECK
             // 
@@ -527,31 +576,6 @@
             this.GPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.GPU_CHECK.CheckedChanged += new System.EventHandler(this.GPU_CHECK_CheckedChanged);
             // 
-            // SCor_Label
-            // 
-            this.SCor_Label.BackColor = System.Drawing.Color.Transparent;
-            this.SCor_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SCor_Label.ForeColor = System.Drawing.Color.White;
-            this.SCor_Label.Location = new System.Drawing.Point(215, -1);
-            this.SCor_Label.Name = "SCor_Label";
-            this.SCor_Label.Size = new System.Drawing.Size(92, 18);
-            this.SCor_Label.TabIndex = 4;
-            this.SCor_Label.Text = "Selecionar Cor";
-            // 
-            // ColorWheel_Button
-            // 
-            this.ColorWheel_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.ColorWheel_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.ColorWheel_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.ColorWheel_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.ColorWheel_Button.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.ColorWheel_Button.ForeColor = System.Drawing.Color.White;
-            this.ColorWheel_Button.Location = new System.Drawing.Point(192, -1);
-            this.ColorWheel_Button.Name = "ColorWheel_Button";
-            this.ColorWheel_Button.Size = new System.Drawing.Size(17, 17);
-            this.ColorWheel_Button.TabIndex = 3;
-            this.ColorWheel_Button.Click += new System.EventHandler(this.ColorWheel_Button_Click);
-            // 
             // CoresAlerta_Check
             // 
             this.CoresAlerta_Check.AutoSize = true;
@@ -615,8 +639,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel BuscarErrosLabel;
         private Guna.UI2.WinForms.Guna2Panel PanelMonitoramento_Config;
         private Guna.UI2.WinForms.Guna2CheckBox CoresAlerta_Check;
-        private Guna.UI2.WinForms.Guna2Button ColorWheel_Button;
-        private Guna.UI2.WinForms.Guna2HtmlLabel SCor_Label;
         private Guna.UI2.WinForms.Guna2CheckBox GPU_CHECK;
         private Guna.UI2.WinForms.Guna2CheckBox CONSGPU_CHECK;
         private Guna.UI2.WinForms.Guna2CheckBox TEMPGPU_CHECK;
@@ -630,5 +652,8 @@
         private Guna.UI2.WinForms.Guna2CheckBox CPU_CHECK;
         private Guna.UI2.WinForms.Guna2CheckBox NomeHardware_Button;
         private Guna.UI2.WinForms.Guna2CheckBox GRAFICOS_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox BackgroundColor_Check;
+        private Guna.UI2.WinForms.Guna2Button ButonColorWheel;
+        private Guna.UI2.WinForms.Guna2HtmlLabel SelectColor_Label;
     }
 }
