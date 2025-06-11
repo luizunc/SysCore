@@ -34,10 +34,17 @@
             this.Config_SeparatorV = new Guna.UI2.WinForms.Guna2VSeparator();
             this.GeralButton = new Guna.UI2.WinForms.Guna2Button();
             this.MonitoramentoButton = new Guna.UI2.WinForms.Guna2Button();
-            this.LogsButton = new Guna.UI2.WinForms.Guna2Button();
+            this.BenchmarkButton = new Guna.UI2.WinForms.Guna2Button();
             this.PropriedadesButton = new Guna.UI2.WinForms.Guna2Button();
             this.CloseConfig_button = new Guna.UI2.WinForms.Guna2ImageButton();
             this.PanelGeral_Config = new Guna.UI2.WinForms.Guna2Panel();
+            this.PanelSobre_Config = new Guna.UI2.WinForms.Guna2Panel();
+            this.GitHubRed_Button = new Guna.UI2.WinForms.Guna2Button();
+            this.GitHubRed_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.Professor_Button = new Guna.UI2.WinForms.Guna2Button();
+            this.Professor_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.Integrantes_ComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.Integrantes_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.BuscarErrosButton = new Guna.UI2.WinForms.Guna2Button();
             this.BuscarErrosLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.UpdateCombo = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -60,8 +67,19 @@
             this.USOGPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.GPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.CoresAlerta_Check = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.PanelBenchmark_Config = new Guna.UI2.WinForms.Guna2Panel();
+            this.WifiTest_Button = new Guna.UI2.WinForms.Guna2Button();
+            this.ExportLogs_Button = new Guna.UI2.WinForms.Guna2Button();
+            this.ExportLogs_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.WifiTest_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.StressCPU_Button = new Guna.UI2.WinForms.Guna2Button();
+            this.StressGPU_Button = new Guna.UI2.WinForms.Guna2Button();
+            this.StressGPU_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.StressCPU_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.PanelGeral_Config.SuspendLayout();
+            this.PanelSobre_Config.SuspendLayout();
             this.PanelMonitoramento_Config.SuspendLayout();
+            this.PanelBenchmark_Config.SuspendLayout();
             this.SuspendLayout();
             // 
             // Confi_Form
@@ -123,24 +141,26 @@
             this.MonitoramentoButton.CheckedChanged += new System.EventHandler(this.MonitoramentoButton_CheckedChanged);
             this.MonitoramentoButton.Click += new System.EventHandler(this.MonitoramentoButton_Click);
             // 
-            // LogsButton
+            // BenchmarkButton
             // 
-            this.LogsButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            this.LogsButton.CheckedState.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.LogsButton.CheckedState.CustomBorderColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.LogsButton.CheckedState.FillColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.LogsButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.LogsButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.LogsButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.LogsButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.LogsButton.FillColor = System.Drawing.Color.Black;
-            this.LogsButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.LogsButton.ForeColor = System.Drawing.Color.White;
-            this.LogsButton.Location = new System.Drawing.Point(12, 126);
-            this.LogsButton.Name = "LogsButton";
-            this.LogsButton.Size = new System.Drawing.Size(134, 32);
-            this.LogsButton.TabIndex = 9;
-            this.LogsButton.Text = "Logs";
+            this.BenchmarkButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.BenchmarkButton.CheckedState.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BenchmarkButton.CheckedState.CustomBorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BenchmarkButton.CheckedState.FillColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BenchmarkButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BenchmarkButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BenchmarkButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BenchmarkButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BenchmarkButton.FillColor = System.Drawing.Color.Black;
+            this.BenchmarkButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.BenchmarkButton.ForeColor = System.Drawing.Color.White;
+            this.BenchmarkButton.Location = new System.Drawing.Point(12, 126);
+            this.BenchmarkButton.Name = "BenchmarkButton";
+            this.BenchmarkButton.Size = new System.Drawing.Size(134, 32);
+            this.BenchmarkButton.TabIndex = 9;
+            this.BenchmarkButton.Text = "Benchmark";
+            this.BenchmarkButton.CheckedChanged += new System.EventHandler(this.LogsButton_CheckedChanged);
+            this.BenchmarkButton.Click += new System.EventHandler(this.LogsButton_Click);
             // 
             // PropriedadesButton
             // 
@@ -159,7 +179,8 @@
             this.PropriedadesButton.Name = "PropriedadesButton";
             this.PropriedadesButton.Size = new System.Drawing.Size(134, 32);
             this.PropriedadesButton.TabIndex = 10;
-            this.PropriedadesButton.Text = "Propriedades";
+            this.PropriedadesButton.Text = "Sobre";
+            this.PropriedadesButton.CheckedChanged += new System.EventHandler(this.PropriedadesButton_CheckedChanged);
             // 
             // CloseConfig_button
             // 
@@ -183,10 +204,115 @@
             this.PanelGeral_Config.Controls.Add(this.BuscarErrosLabel);
             this.PanelGeral_Config.Controls.Add(this.UpdateCombo);
             this.PanelGeral_Config.Controls.Add(this.UpdateLabel);
-            this.PanelGeral_Config.Location = new System.Drawing.Point(12, 323);
+            this.PanelGeral_Config.Location = new System.Drawing.Point(168, 50);
             this.PanelGeral_Config.Name = "PanelGeral_Config";
             this.PanelGeral_Config.Size = new System.Drawing.Size(320, 288);
             this.PanelGeral_Config.TabIndex = 12;
+            // 
+            // PanelSobre_Config
+            // 
+            this.PanelSobre_Config.Controls.Add(this.GitHubRed_Button);
+            this.PanelSobre_Config.Controls.Add(this.GitHubRed_Label);
+            this.PanelSobre_Config.Controls.Add(this.Professor_Button);
+            this.PanelSobre_Config.Controls.Add(this.Professor_Label);
+            this.PanelSobre_Config.Controls.Add(this.Integrantes_ComboBox);
+            this.PanelSobre_Config.Controls.Add(this.Integrantes_Label);
+            this.PanelSobre_Config.Location = new System.Drawing.Point(168, 50);
+            this.PanelSobre_Config.Name = "PanelSobre_Config";
+            this.PanelSobre_Config.Size = new System.Drawing.Size(320, 288);
+            this.PanelSobre_Config.TabIndex = 14;
+            this.PanelSobre_Config.Visible = false;
+            // 
+            // GitHubRed_Button
+            // 
+            this.GitHubRed_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.GitHubRed_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.GitHubRed_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.GitHubRed_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.GitHubRed_Button.FillColor = System.Drawing.Color.White;
+            this.GitHubRed_Button.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GitHubRed_Button.ForeColor = System.Drawing.Color.Black;
+            this.GitHubRed_Button.Location = new System.Drawing.Point(107, 138);
+            this.GitHubRed_Button.Name = "GitHubRed_Button";
+            this.GitHubRed_Button.Size = new System.Drawing.Size(140, 36);
+            this.GitHubRed_Button.TabIndex = 5;
+            this.GitHubRed_Button.Text = "GitHub";
+            this.GitHubRed_Button.Click += new System.EventHandler(this.GitHubRed_Button_Click);
+            // 
+            // GitHubRed_Label
+            // 
+            this.GitHubRed_Label.BackColor = System.Drawing.Color.Transparent;
+            this.GitHubRed_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GitHubRed_Label.ForeColor = System.Drawing.Color.White;
+            this.GitHubRed_Label.Location = new System.Drawing.Point(107, 114);
+            this.GitHubRed_Label.Name = "GitHubRed_Label";
+            this.GitHubRed_Label.Size = new System.Drawing.Size(100, 18);
+            this.GitHubRed_Label.TabIndex = 4;
+            this.GitHubRed_Label.Text = "Acessar Código";
+            // 
+            // Professor_Button
+            // 
+            this.Professor_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.Professor_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.Professor_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.Professor_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.Professor_Button.FillColor = System.Drawing.Color.White;
+            this.Professor_Button.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Professor_Button.ForeColor = System.Drawing.Color.Black;
+            this.Professor_Button.Location = new System.Drawing.Point(177, 24);
+            this.Professor_Button.Name = "Professor_Button";
+            this.Professor_Button.Size = new System.Drawing.Size(140, 36);
+            this.Professor_Button.TabIndex = 3;
+            this.Professor_Button.Text = "Osmam Bras";
+            // 
+            // Professor_Label
+            // 
+            this.Professor_Label.BackColor = System.Drawing.Color.Transparent;
+            this.Professor_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Professor_Label.ForeColor = System.Drawing.Color.White;
+            this.Professor_Label.Location = new System.Drawing.Point(177, 0);
+            this.Professor_Label.Name = "Professor_Label";
+            this.Professor_Label.Size = new System.Drawing.Size(64, 18);
+            this.Professor_Label.TabIndex = 2;
+            this.Professor_Label.Text = "Professor:";
+            // 
+            // Integrantes_ComboBox
+            // 
+            this.Integrantes_ComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.Integrantes_ComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.Integrantes_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Integrantes_ComboBox.FocusedColor = System.Drawing.Color.Black;
+            this.Integrantes_ComboBox.FocusedState.BorderColor = System.Drawing.Color.Black;
+            this.Integrantes_ComboBox.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.Integrantes_ComboBox.ForeColor = System.Drawing.Color.Black;
+            this.Integrantes_ComboBox.ItemHeight = 30;
+            this.Integrantes_ComboBox.Items.AddRange(new object[] {
+            "Erick Pereira",
+            "Flávio Araujo",
+            "Leonardo Esquivel",
+            "Leonardo Santos",
+            "Luiz Eduardo",
+            "Lucas Teodoro",
+            "Lucas Teixeira",
+            "Nicolas Elias",
+            "Rafael Dias"});
+            this.Integrantes_ComboBox.Location = new System.Drawing.Point(15, 24);
+            this.Integrantes_ComboBox.Name = "Integrantes_ComboBox";
+            this.Integrantes_ComboBox.Size = new System.Drawing.Size(140, 36);
+            this.Integrantes_ComboBox.StartIndex = 0;
+            this.Integrantes_ComboBox.TabIndex = 1;
+            this.Integrantes_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Integrantes_ComboBox_SelectedIndexChanged);
+            // 
+            // Integrantes_Label
+            // 
+            this.Integrantes_Label.BackColor = System.Drawing.Color.Transparent;
+            this.Integrantes_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Integrantes_Label.ForeColor = System.Drawing.Color.White;
+            this.Integrantes_Label.Location = new System.Drawing.Point(15, 0);
+            this.Integrantes_Label.Name = "Integrantes_Label";
+            this.Integrantes_Label.Size = new System.Drawing.Size(72, 18);
+            this.Integrantes_Label.TabIndex = 0;
+            this.Integrantes_Label.Text = "Integrantes:";
             // 
             // BuscarErrosButton
             // 
@@ -596,20 +722,150 @@
             this.CoresAlerta_Check.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CoresAlerta_Check.CheckedChanged += new System.EventHandler(this.CoresAlerta_Check_CheckedChanged);
             // 
+            // PanelBenchmark_Config
+            // 
+            this.PanelBenchmark_Config.Controls.Add(this.WifiTest_Button);
+            this.PanelBenchmark_Config.Controls.Add(this.ExportLogs_Button);
+            this.PanelBenchmark_Config.Controls.Add(this.ExportLogs_Label);
+            this.PanelBenchmark_Config.Controls.Add(this.WifiTest_Label);
+            this.PanelBenchmark_Config.Controls.Add(this.StressCPU_Button);
+            this.PanelBenchmark_Config.Controls.Add(this.StressGPU_Button);
+            this.PanelBenchmark_Config.Controls.Add(this.StressGPU_Label);
+            this.PanelBenchmark_Config.Controls.Add(this.StressCPU_Label);
+            this.PanelBenchmark_Config.Location = new System.Drawing.Point(168, 50);
+            this.PanelBenchmark_Config.Name = "PanelBenchmark_Config";
+            this.PanelBenchmark_Config.Size = new System.Drawing.Size(320, 288);
+            this.PanelBenchmark_Config.TabIndex = 13;
+            this.PanelBenchmark_Config.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelBenchmark_Config_Paint);
+            // 
+            // WifiTest_Button
+            // 
+            this.WifiTest_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.WifiTest_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.WifiTest_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.WifiTest_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.WifiTest_Button.FillColor = System.Drawing.Color.White;
+            this.WifiTest_Button.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.WifiTest_Button.ForeColor = System.Drawing.Color.Black;
+            this.WifiTest_Button.Location = new System.Drawing.Point(15, 138);
+            this.WifiTest_Button.Name = "WifiTest_Button";
+            this.WifiTest_Button.Size = new System.Drawing.Size(140, 36);
+            this.WifiTest_Button.TabIndex = 8;
+            this.WifiTest_Button.Text = "Render";
+            this.WifiTest_Button.Click += new System.EventHandler(this.WifiTest_Button_Click);
+            // 
+            // ExportLogs_Button
+            // 
+            this.ExportLogs_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.ExportLogs_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.ExportLogs_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.ExportLogs_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.ExportLogs_Button.FillColor = System.Drawing.Color.White;
+            this.ExportLogs_Button.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ExportLogs_Button.ForeColor = System.Drawing.Color.Black;
+            this.ExportLogs_Button.Location = new System.Drawing.Point(177, 138);
+            this.ExportLogs_Button.Name = "ExportLogs_Button";
+            this.ExportLogs_Button.Size = new System.Drawing.Size(140, 36);
+            this.ExportLogs_Button.TabIndex = 7;
+            this.ExportLogs_Button.Text = "Exportar";
+            this.ExportLogs_Button.Click += new System.EventHandler(this.ExportLogs_Button_Click);
+            // 
+            // ExportLogs_Label
+            // 
+            this.ExportLogs_Label.BackColor = System.Drawing.Color.Transparent;
+            this.ExportLogs_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExportLogs_Label.ForeColor = System.Drawing.Color.White;
+            this.ExportLogs_Label.Location = new System.Drawing.Point(177, 114);
+            this.ExportLogs_Label.Name = "ExportLogs_Label";
+            this.ExportLogs_Label.Size = new System.Drawing.Size(86, 18);
+            this.ExportLogs_Label.TabIndex = 6;
+            this.ExportLogs_Label.Text = "Exportar Logs";
+            this.ExportLogs_Label.Click += new System.EventHandler(this.ExportLogs_Label_Click);
+            // 
+            // WifiTest_Label
+            // 
+            this.WifiTest_Label.BackColor = System.Drawing.Color.Transparent;
+            this.WifiTest_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WifiTest_Label.ForeColor = System.Drawing.Color.White;
+            this.WifiTest_Label.Location = new System.Drawing.Point(15, 114);
+            this.WifiTest_Label.Name = "WifiTest_Label";
+            this.WifiTest_Label.Size = new System.Drawing.Size(94, 18);
+            this.WifiTest_Label.TabIndex = 5;
+            this.WifiTest_Label.Text = "Teste de Rede";
+            this.WifiTest_Label.Click += new System.EventHandler(this.WifiTest_Label_Click);
+            // 
+            // StressCPU_Button
+            // 
+            this.StressCPU_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.StressCPU_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.StressCPU_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.StressCPU_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.StressCPU_Button.FillColor = System.Drawing.Color.White;
+            this.StressCPU_Button.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.StressCPU_Button.ForeColor = System.Drawing.Color.Black;
+            this.StressCPU_Button.Location = new System.Drawing.Point(15, 24);
+            this.StressCPU_Button.Name = "StressCPU_Button";
+            this.StressCPU_Button.Size = new System.Drawing.Size(140, 36);
+            this.StressCPU_Button.TabIndex = 4;
+            this.StressCPU_Button.Text = "Render";
+            this.StressCPU_Button.Click += new System.EventHandler(this.StressCPU_Button_Click);
+            // 
+            // StressGPU_Button
+            // 
+            this.StressGPU_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.StressGPU_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.StressGPU_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.StressGPU_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.StressGPU_Button.FillColor = System.Drawing.Color.White;
+            this.StressGPU_Button.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.StressGPU_Button.ForeColor = System.Drawing.Color.Black;
+            this.StressGPU_Button.Location = new System.Drawing.Point(177, 24);
+            this.StressGPU_Button.Name = "StressGPU_Button";
+            this.StressGPU_Button.Size = new System.Drawing.Size(140, 36);
+            this.StressGPU_Button.TabIndex = 3;
+            this.StressGPU_Button.Text = "Render";
+            this.StressGPU_Button.Click += new System.EventHandler(this.StressGPU_Button_Click);
+            // 
+            // StressGPU_Label
+            // 
+            this.StressGPU_Label.BackColor = System.Drawing.Color.Transparent;
+            this.StressGPU_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StressGPU_Label.ForeColor = System.Drawing.Color.White;
+            this.StressGPU_Label.Location = new System.Drawing.Point(177, 0);
+            this.StressGPU_Label.Name = "StressGPU_Label";
+            this.StressGPU_Label.Size = new System.Drawing.Size(92, 18);
+            this.StressGPU_Label.TabIndex = 2;
+            this.StressGPU_Label.Text = "Estressar GPU";
+            this.StressGPU_Label.Click += new System.EventHandler(this.StressGPU_Label_Click);
+            // 
+            // StressCPU_Label
+            // 
+            this.StressCPU_Label.BackColor = System.Drawing.Color.Transparent;
+            this.StressCPU_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StressCPU_Label.ForeColor = System.Drawing.Color.White;
+            this.StressCPU_Label.Location = new System.Drawing.Point(15, 0);
+            this.StressCPU_Label.Name = "StressCPU_Label";
+            this.StressCPU_Label.Size = new System.Drawing.Size(91, 18);
+            this.StressCPU_Label.TabIndex = 0;
+            this.StressCPU_Label.Text = "Estressar CPU";
+            this.StressCPU_Label.Click += new System.EventHandler(this.StressCPU_Label_Click);
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(17)))), ((int)(((byte)(23)))));
             this.ClientSize = new System.Drawing.Size(500, 350);
-            this.Controls.Add(this.PanelGeral_Config);
+            this.Controls.Add(this.PanelSobre_Config);
             this.Controls.Add(this.CloseConfig_button);
             this.Controls.Add(this.PropriedadesButton);
-            this.Controls.Add(this.LogsButton);
-            this.Controls.Add(this.PanelMonitoramento_Config);
+            this.Controls.Add(this.BenchmarkButton);
             this.Controls.Add(this.MonitoramentoButton);
             this.Controls.Add(this.GeralButton);
             this.Controls.Add(this.Config_SeparatorV);
+            this.Controls.Add(this.PanelGeral_Config);
+            this.Controls.Add(this.PanelMonitoramento_Config);
+            this.Controls.Add(this.PanelBenchmark_Config);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Config";
@@ -617,8 +873,12 @@
             this.Load += new System.EventHandler(this.Config_Load);
             this.PanelGeral_Config.ResumeLayout(false);
             this.PanelGeral_Config.PerformLayout();
+            this.PanelSobre_Config.ResumeLayout(false);
+            this.PanelSobre_Config.PerformLayout();
             this.PanelMonitoramento_Config.ResumeLayout(false);
             this.PanelMonitoramento_Config.PerformLayout();
+            this.PanelBenchmark_Config.ResumeLayout(false);
+            this.PanelBenchmark_Config.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -630,7 +890,7 @@
         private Guna.UI2.WinForms.Guna2Button MonitoramentoButton;
         private Guna.UI2.WinForms.Guna2Button GeralButton;
         private Guna.UI2.WinForms.Guna2Button PropriedadesButton;
-        private Guna.UI2.WinForms.Guna2Button LogsButton;
+        private Guna.UI2.WinForms.Guna2Button BenchmarkButton;
         private Guna.UI2.WinForms.Guna2ImageButton CloseConfig_button;
         private Guna.UI2.WinForms.Guna2Panel PanelGeral_Config;
         private Guna.UI2.WinForms.Guna2HtmlLabel UpdateLabel;
@@ -655,5 +915,21 @@
         private Guna.UI2.WinForms.Guna2CheckBox BackgroundColor_Check;
         private Guna.UI2.WinForms.Guna2Button ButonColorWheel;
         private Guna.UI2.WinForms.Guna2HtmlLabel SelectColor_Label;
+        private Guna.UI2.WinForms.Guna2Panel PanelBenchmark_Config;
+        private Guna.UI2.WinForms.Guna2Button StressGPU_Button;
+        private Guna.UI2.WinForms.Guna2HtmlLabel StressGPU_Label;
+        private Guna.UI2.WinForms.Guna2HtmlLabel StressCPU_Label;
+        private Guna.UI2.WinForms.Guna2Button StressCPU_Button;
+        private Guna.UI2.WinForms.Guna2Button WifiTest_Button;
+        private Guna.UI2.WinForms.Guna2Button ExportLogs_Button;
+        private Guna.UI2.WinForms.Guna2HtmlLabel ExportLogs_Label;
+        private Guna.UI2.WinForms.Guna2HtmlLabel WifiTest_Label;
+        private Guna.UI2.WinForms.Guna2Panel PanelSobre_Config;
+        private Guna.UI2.WinForms.Guna2Button Professor_Button;
+        private Guna.UI2.WinForms.Guna2HtmlLabel Professor_Label;
+        private Guna.UI2.WinForms.Guna2ComboBox Integrantes_ComboBox;
+        private Guna.UI2.WinForms.Guna2HtmlLabel Integrantes_Label;
+        private Guna.UI2.WinForms.Guna2Button GitHubRed_Button;
+        private Guna.UI2.WinForms.Guna2HtmlLabel GitHubRed_Label;
     }
 }

@@ -285,12 +285,12 @@ namespace SysCore
             if (showUSOGPU) { labels.Add("USO GPU"); values.Add($"{gpuUsage,4:0}%"); groupColors.Add(Color.Lime); }
             if (showVRAM) { labels.Add("VRAM"); values.Add(vramStr); groupColors.Add(Color.Lime); }
             if (showTEMPGPU) { labels.Add("TEMP GPU"); values.Add($"{gpuTemp,4:0}°C"); groupColors.Add(Color.Lime); }
-            if (showCONSGPU) { labels.Add("Cons. GPU"); values.Add($"{gpuPower,4:0}W"); groupColors.Add(Color.Lime); }
+            if (showCONSGPU) { labels.Add("CONS. GPU"); values.Add($"{gpuPower,4:0}W"); groupColors.Add(Color.Lime); }
             if (showCPU) { labels.Add(showHardwareName ? cpuModel : "CPU"); values.Add($"{cpuUsage,4:0}%"); groupColors.Add(Color.Cyan); }
             if (showUSOCPU) { labels.Add("USO CPU"); values.Add($"{cpuUsage,4:0}%"); groupColors.Add(Color.Cyan); }
             if (showCLOCKCPU) { labels.Add("CLOCK CPU"); values.Add(cpuClock.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + " GHz"); groupColors.Add(Color.Cyan); }
             if (showTEMPCPU) { labels.Add("TEMP CPU"); values.Add($"{cpuTemp,4:0}°C"); groupColors.Add(Color.Cyan); }
-            if (showCONSCPU) { labels.Add("Cons. CPU"); values.Add($"{cpuPower,4:0}W"); groupColors.Add(Color.Cyan); }
+            if (showCONSCPU) { labels.Add("CONS. CPU"); values.Add($"{cpuPower,4:0}W"); groupColors.Add(Color.Cyan); }
             if (showRAM) { labels.Add("RAM"); values.Add($"{(int)ramUsed}MB"); groupColors.Add(Color.Yellow); }
             // Se nada estiver selecionado, não desenha nada
             for (int i = 0; i < labels.Count; i++)
@@ -305,9 +305,9 @@ namespace SysCore
                     else if (labels[i].Contains("USO CPU")) val = cpuUsage;
                     else if (labels[i] == "VRAM") val = gpuMemUsed > 0 ? (gpuMemUsed / (gpuMemTotal > 0 ? gpuMemTotal : 1)) * 100 : 0;
                     else if (labels[i] == "TEMP GPU") val = gpuTemp;
-                    else if (labels[i] == "Cons. GPU") val = gpuPower;
+                    else if (labels[i] == "CONS. GPU") val = gpuPower;
                     else if (labels[i] == "TEMP CPU") val = cpuTemp;
-                    else if (labels[i] == "Cons. CPU") val = cpuPower;
+                    else if (labels[i] == "CONS. CPU") val = cpuPower;
                     else if (labels[i] == "RAM") val = ramUsed > 0 && ramTotal > 0 ? (ramUsed / ramTotal) * 100 : 0;
                     else if (labels[i] == (showHardwareName ? gpuModel : "GPU")) val = gpuUsage;
                     else if (labels[i] == (showHardwareName ? cpuModel : "CPU")) val = cpuUsage;
