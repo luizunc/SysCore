@@ -38,13 +38,27 @@
             this.PropriedadesButton = new Guna.UI2.WinForms.Guna2Button();
             this.CloseConfig_button = new Guna.UI2.WinForms.Guna2ImageButton();
             this.PanelGeral_Config = new Guna.UI2.WinForms.Guna2Panel();
-            this.PanelMonitoramento_Config = new Guna.UI2.WinForms.Guna2Panel();
             this.BuscarErrosButton = new Guna.UI2.WinForms.Guna2Button();
             this.BuscarErrosLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.UpdateCombo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.UpdateLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.Hotkey_Monitoramento = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.AtalhoMonitoramento = new Guna.UI2.WinForms.Guna2TextBox();
+            this.PanelMonitoramento_Config = new Guna.UI2.WinForms.Guna2Panel();
+            this.NomeHardware_Button = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.RAM_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.CONSCPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.TEMPCPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.CLOCKCPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.USOCPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.CPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.CONSGPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.TEMPGPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.VRAM_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.USOGPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.GPU_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.SCor_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.ColorWheel_Button = new Guna.UI2.WinForms.Guna2Button();
+            this.CoresAlerta_Check = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.GRAFICOS_CHECK = new Guna.UI2.WinForms.Guna2CheckBox();
             this.PanelGeral_Config.SuspendLayout();
             this.PanelMonitoramento_Config.SuspendLayout();
             this.SuspendLayout();
@@ -105,8 +119,8 @@
             this.MonitoramentoButton.Size = new System.Drawing.Size(134, 32);
             this.MonitoramentoButton.TabIndex = 8;
             this.MonitoramentoButton.Text = "Monitoramento";
-            this.MonitoramentoButton.Click += new System.EventHandler(this.MonitoramentoButton_Click);
             this.MonitoramentoButton.CheckedChanged += new System.EventHandler(this.MonitoramentoButton_CheckedChanged);
+            this.MonitoramentoButton.Click += new System.EventHandler(this.MonitoramentoButton_Click);
             // 
             // LogsButton
             // 
@@ -164,24 +178,14 @@
             // 
             // PanelGeral_Config
             // 
-            this.PanelGeral_Config.Controls.Add(this.PanelMonitoramento_Config);
             this.PanelGeral_Config.Controls.Add(this.BuscarErrosButton);
             this.PanelGeral_Config.Controls.Add(this.BuscarErrosLabel);
             this.PanelGeral_Config.Controls.Add(this.UpdateCombo);
             this.PanelGeral_Config.Controls.Add(this.UpdateLabel);
-            this.PanelGeral_Config.Location = new System.Drawing.Point(168, 50);
+            this.PanelGeral_Config.Location = new System.Drawing.Point(12, 323);
             this.PanelGeral_Config.Name = "PanelGeral_Config";
             this.PanelGeral_Config.Size = new System.Drawing.Size(320, 288);
             this.PanelGeral_Config.TabIndex = 12;
-            // 
-            // PanelMonitoramento_Config
-            // 
-            this.PanelMonitoramento_Config.Controls.Add(this.AtalhoMonitoramento);
-            this.PanelMonitoramento_Config.Controls.Add(this.Hotkey_Monitoramento);
-            this.PanelMonitoramento_Config.Location = new System.Drawing.Point(168, 50);
-            this.PanelMonitoramento_Config.Name = "PanelMonitoramento_Config";
-            this.PanelMonitoramento_Config.Size = new System.Drawing.Size(320, 288);
-            this.PanelMonitoramento_Config.TabIndex = 13;
             // 
             // BuscarErrosButton
             // 
@@ -240,38 +244,333 @@
             this.UpdateLabel.TabIndex = 0;
             this.UpdateLabel.Text = "Buscar Atualizações:";
             // 
-            // Hotkey_Monitoramento
+            // PanelMonitoramento_Config
             // 
-            this.Hotkey_Monitoramento.BackColor = System.Drawing.Color.Transparent;
-            this.Hotkey_Monitoramento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Hotkey_Monitoramento.ForeColor = System.Drawing.Color.White;
-            this.Hotkey_Monitoramento.Location = new System.Drawing.Point(44, 0);
-            this.Hotkey_Monitoramento.Name = "Hotkey_Monitoramento";
-            this.Hotkey_Monitoramento.Size = new System.Drawing.Size(98, 18);
-            this.Hotkey_Monitoramento.TabIndex = 0;
-            this.Hotkey_Monitoramento.Text = "Tecla de Atalho";
-            this.Hotkey_Monitoramento.Click += new System.EventHandler(this.Hotkey_Monitoramento_Click);
+            this.PanelMonitoramento_Config.Controls.Add(this.GRAFICOS_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.NomeHardware_Button);
+            this.PanelMonitoramento_Config.Controls.Add(this.RAM_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.CONSCPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.TEMPCPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.CLOCKCPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.USOCPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.CPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.CONSGPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.TEMPGPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.VRAM_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.USOGPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.GPU_CHECK);
+            this.PanelMonitoramento_Config.Controls.Add(this.SCor_Label);
+            this.PanelMonitoramento_Config.Controls.Add(this.ColorWheel_Button);
+            this.PanelMonitoramento_Config.Controls.Add(this.CoresAlerta_Check);
+            this.PanelMonitoramento_Config.Location = new System.Drawing.Point(168, 50);
+            this.PanelMonitoramento_Config.Name = "PanelMonitoramento_Config";
+            this.PanelMonitoramento_Config.Size = new System.Drawing.Size(320, 288);
+            this.PanelMonitoramento_Config.TabIndex = 13;
             // 
-            // AtalhoMonitoramento
+            // NomeHardware_Button
             // 
-            this.AtalhoMonitoramento.BorderColor = System.Drawing.Color.Transparent;
-            this.AtalhoMonitoramento.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.AtalhoMonitoramento.DefaultText = "";
-            this.AtalhoMonitoramento.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.AtalhoMonitoramento.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.AtalhoMonitoramento.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.AtalhoMonitoramento.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.AtalhoMonitoramento.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.AtalhoMonitoramento.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.AtalhoMonitoramento.ForeColor = System.Drawing.Color.Transparent;
-            this.AtalhoMonitoramento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.AtalhoMonitoramento.Location = new System.Drawing.Point(15, 0);
-            this.AtalhoMonitoramento.Name = "AtalhoMonitoramento";
-            this.AtalhoMonitoramento.PlaceholderForeColor = System.Drawing.Color.Black;
-            this.AtalhoMonitoramento.PlaceholderText = "";
-            this.AtalhoMonitoramento.SelectedText = "";
-            this.AtalhoMonitoramento.Size = new System.Drawing.Size(23, 18);
-            this.AtalhoMonitoramento.TabIndex = 1;
+            this.NomeHardware_Button.AutoSize = true;
+            this.NomeHardware_Button.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.NomeHardware_Button.CheckedState.BorderRadius = 0;
+            this.NomeHardware_Button.CheckedState.BorderThickness = 0;
+            this.NomeHardware_Button.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.NomeHardware_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NomeHardware_Button.ForeColor = System.Drawing.Color.White;
+            this.NomeHardware_Button.Location = new System.Drawing.Point(21, 25);
+            this.NomeHardware_Button.Name = "NomeHardware_Button";
+            this.NomeHardware_Button.Size = new System.Drawing.Size(125, 20);
+            this.NomeHardware_Button.TabIndex = 16;
+            this.NomeHardware_Button.Text = "Nome Hardware";
+            this.NomeHardware_Button.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.NomeHardware_Button.UncheckedState.BorderRadius = 0;
+            this.NomeHardware_Button.UncheckedState.BorderThickness = 0;
+            this.NomeHardware_Button.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.NomeHardware_Button.CheckedChanged += new System.EventHandler(this.NomeHardware_Button_CheckedChanged);
+            // 
+            // RAM_CHECK
+            // 
+            this.RAM_CHECK.AutoSize = true;
+            this.RAM_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.RAM_CHECK.CheckedState.BorderRadius = 0;
+            this.RAM_CHECK.CheckedState.BorderThickness = 0;
+            this.RAM_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.RAM_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RAM_CHECK.ForeColor = System.Drawing.Color.White;
+            this.RAM_CHECK.Location = new System.Drawing.Point(192, 180);
+            this.RAM_CHECK.Name = "RAM_CHECK";
+            this.RAM_CHECK.Size = new System.Drawing.Size(56, 20);
+            this.RAM_CHECK.TabIndex = 15;
+            this.RAM_CHECK.Text = "RAM";
+            this.RAM_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.RAM_CHECK.UncheckedState.BorderRadius = 0;
+            this.RAM_CHECK.UncheckedState.BorderThickness = 0;
+            this.RAM_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.RAM_CHECK.CheckedChanged += new System.EventHandler(this.RAM_CHECK_CheckedChanged);
+            // 
+            // CONSCPU_CHECK
+            // 
+            this.CONSCPU_CHECK.AutoSize = true;
+            this.CONSCPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CONSCPU_CHECK.CheckedState.BorderRadius = 0;
+            this.CONSCPU_CHECK.CheckedState.BorderThickness = 0;
+            this.CONSCPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CONSCPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CONSCPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.CONSCPU_CHECK.Location = new System.Drawing.Point(192, 154);
+            this.CONSCPU_CHECK.Name = "CONSCPU_CHECK";
+            this.CONSCPU_CHECK.Size = new System.Drawing.Size(98, 20);
+            this.CONSCPU_CHECK.TabIndex = 14;
+            this.CONSCPU_CHECK.Text = "CONS. CPU";
+            this.CONSCPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CONSCPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.CONSCPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.CONSCPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CONSCPU_CHECK.CheckedChanged += new System.EventHandler(this.CONSCPU_CHECK_CheckedChanged);
+            // 
+            // TEMPCPU_CHECK
+            // 
+            this.TEMPCPU_CHECK.AutoSize = true;
+            this.TEMPCPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.TEMPCPU_CHECK.CheckedState.BorderRadius = 0;
+            this.TEMPCPU_CHECK.CheckedState.BorderThickness = 0;
+            this.TEMPCPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.TEMPCPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TEMPCPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.TEMPCPU_CHECK.Location = new System.Drawing.Point(192, 128);
+            this.TEMPCPU_CHECK.Name = "TEMPCPU_CHECK";
+            this.TEMPCPU_CHECK.Size = new System.Drawing.Size(95, 20);
+            this.TEMPCPU_CHECK.TabIndex = 13;
+            this.TEMPCPU_CHECK.Text = "TEMP CPU";
+            this.TEMPCPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.TEMPCPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.TEMPCPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.TEMPCPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.TEMPCPU_CHECK.CheckedChanged += new System.EventHandler(this.TEMPCPU_CHECK_CheckedChanged);
+            // 
+            // CLOCKCPU_CHECK
+            // 
+            this.CLOCKCPU_CHECK.AutoSize = true;
+            this.CLOCKCPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CLOCKCPU_CHECK.CheckedState.BorderRadius = 0;
+            this.CLOCKCPU_CHECK.CheckedState.BorderThickness = 0;
+            this.CLOCKCPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CLOCKCPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CLOCKCPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.CLOCKCPU_CHECK.Location = new System.Drawing.Point(192, 102);
+            this.CLOCKCPU_CHECK.Name = "CLOCKCPU_CHECK";
+            this.CLOCKCPU_CHECK.Size = new System.Drawing.Size(100, 20);
+            this.CLOCKCPU_CHECK.TabIndex = 12;
+            this.CLOCKCPU_CHECK.Text = "CLOCK CPU";
+            this.CLOCKCPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CLOCKCPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.CLOCKCPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.CLOCKCPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CLOCKCPU_CHECK.CheckedChanged += new System.EventHandler(this.CLOCKCPU_CHECK_CheckedChanged);
+            // 
+            // USOCPU_CHECK
+            // 
+            this.USOCPU_CHECK.AutoSize = true;
+            this.USOCPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.USOCPU_CHECK.CheckedState.BorderRadius = 0;
+            this.USOCPU_CHECK.CheckedState.BorderThickness = 0;
+            this.USOCPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.USOCPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.USOCPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.USOCPU_CHECK.Location = new System.Drawing.Point(192, 76);
+            this.USOCPU_CHECK.Name = "USOCPU_CHECK";
+            this.USOCPU_CHECK.Size = new System.Drawing.Size(86, 20);
+            this.USOCPU_CHECK.TabIndex = 11;
+            this.USOCPU_CHECK.Text = "USO CPU";
+            this.USOCPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.USOCPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.USOCPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.USOCPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.USOCPU_CHECK.CheckedChanged += new System.EventHandler(this.USOCPU_CHECK_CheckedChanged);
+            // 
+            // CPU_CHECK
+            // 
+            this.CPU_CHECK.AutoSize = true;
+            this.CPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CPU_CHECK.CheckedState.BorderRadius = 0;
+            this.CPU_CHECK.CheckedState.BorderThickness = 0;
+            this.CPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.CPU_CHECK.Location = new System.Drawing.Point(21, 206);
+            this.CPU_CHECK.Name = "CPU_CHECK";
+            this.CPU_CHECK.Size = new System.Drawing.Size(54, 20);
+            this.CPU_CHECK.TabIndex = 10;
+            this.CPU_CHECK.Text = "CPU";
+            this.CPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.CPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.CPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CPU_CHECK.CheckedChanged += new System.EventHandler(this.CPU_CHECK_CheckedChanged);
+            // 
+            // CONSGPU_CHECK
+            // 
+            this.CONSGPU_CHECK.AutoSize = true;
+            this.CONSGPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CONSGPU_CHECK.CheckedState.BorderRadius = 0;
+            this.CONSGPU_CHECK.CheckedState.BorderThickness = 0;
+            this.CONSGPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CONSGPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CONSGPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.CONSGPU_CHECK.Location = new System.Drawing.Point(21, 180);
+            this.CONSGPU_CHECK.Name = "CONSGPU_CHECK";
+            this.CONSGPU_CHECK.Size = new System.Drawing.Size(99, 20);
+            this.CONSGPU_CHECK.TabIndex = 9;
+            this.CONSGPU_CHECK.Text = "CONS. GPU";
+            this.CONSGPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CONSGPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.CONSGPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.CONSGPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CONSGPU_CHECK.CheckedChanged += new System.EventHandler(this.CONSGPU_CHECK_CheckedChanged);
+            // 
+            // TEMPGPU_CHECK
+            // 
+            this.TEMPGPU_CHECK.AutoSize = true;
+            this.TEMPGPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.TEMPGPU_CHECK.CheckedState.BorderRadius = 0;
+            this.TEMPGPU_CHECK.CheckedState.BorderThickness = 0;
+            this.TEMPGPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.TEMPGPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TEMPGPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.TEMPGPU_CHECK.Location = new System.Drawing.Point(21, 154);
+            this.TEMPGPU_CHECK.Name = "TEMPGPU_CHECK";
+            this.TEMPGPU_CHECK.Size = new System.Drawing.Size(99, 20);
+            this.TEMPGPU_CHECK.TabIndex = 8;
+            this.TEMPGPU_CHECK.Text = "TEMP. GPU";
+            this.TEMPGPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.TEMPGPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.TEMPGPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.TEMPGPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.TEMPGPU_CHECK.CheckedChanged += new System.EventHandler(this.TEMPGPU_CHECK_CheckedChanged);
+            // 
+            // VRAM_CHECK
+            // 
+            this.VRAM_CHECK.AutoSize = true;
+            this.VRAM_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.VRAM_CHECK.CheckedState.BorderRadius = 0;
+            this.VRAM_CHECK.CheckedState.BorderThickness = 0;
+            this.VRAM_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.VRAM_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VRAM_CHECK.ForeColor = System.Drawing.Color.White;
+            this.VRAM_CHECK.Location = new System.Drawing.Point(21, 128);
+            this.VRAM_CHECK.Name = "VRAM_CHECK";
+            this.VRAM_CHECK.Size = new System.Drawing.Size(65, 20);
+            this.VRAM_CHECK.TabIndex = 7;
+            this.VRAM_CHECK.Text = "VRAM";
+            this.VRAM_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.VRAM_CHECK.UncheckedState.BorderRadius = 0;
+            this.VRAM_CHECK.UncheckedState.BorderThickness = 0;
+            this.VRAM_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.VRAM_CHECK.CheckedChanged += new System.EventHandler(this.VRAM_CHECK_CheckedChanged);
+            // 
+            // USOGPU_CHECK
+            // 
+            this.USOGPU_CHECK.AutoSize = true;
+            this.USOGPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.USOGPU_CHECK.CheckedState.BorderRadius = 0;
+            this.USOGPU_CHECK.CheckedState.BorderThickness = 0;
+            this.USOGPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.USOGPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.USOGPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.USOGPU_CHECK.Location = new System.Drawing.Point(21, 102);
+            this.USOGPU_CHECK.Name = "USOGPU_CHECK";
+            this.USOGPU_CHECK.Size = new System.Drawing.Size(87, 20);
+            this.USOGPU_CHECK.TabIndex = 6;
+            this.USOGPU_CHECK.Text = "USO GPU";
+            this.USOGPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.USOGPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.USOGPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.USOGPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.USOGPU_CHECK.CheckedChanged += new System.EventHandler(this.USOGPU_CHECK_CheckedChanged);
+            // 
+            // GPU_CHECK
+            // 
+            this.GPU_CHECK.AutoSize = true;
+            this.GPU_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.GPU_CHECK.CheckedState.BorderRadius = 0;
+            this.GPU_CHECK.CheckedState.BorderThickness = 0;
+            this.GPU_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.GPU_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GPU_CHECK.ForeColor = System.Drawing.Color.White;
+            this.GPU_CHECK.Location = new System.Drawing.Point(21, 76);
+            this.GPU_CHECK.Name = "GPU_CHECK";
+            this.GPU_CHECK.Size = new System.Drawing.Size(55, 20);
+            this.GPU_CHECK.TabIndex = 5;
+            this.GPU_CHECK.Text = "GPU";
+            this.GPU_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.GPU_CHECK.UncheckedState.BorderRadius = 0;
+            this.GPU_CHECK.UncheckedState.BorderThickness = 0;
+            this.GPU_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.GPU_CHECK.CheckedChanged += new System.EventHandler(this.GPU_CHECK_CheckedChanged);
+            // 
+            // SCor_Label
+            // 
+            this.SCor_Label.BackColor = System.Drawing.Color.Transparent;
+            this.SCor_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SCor_Label.ForeColor = System.Drawing.Color.White;
+            this.SCor_Label.Location = new System.Drawing.Point(215, -1);
+            this.SCor_Label.Name = "SCor_Label";
+            this.SCor_Label.Size = new System.Drawing.Size(92, 18);
+            this.SCor_Label.TabIndex = 4;
+            this.SCor_Label.Text = "Selecionar Cor";
+            // 
+            // ColorWheel_Button
+            // 
+            this.ColorWheel_Button.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.ColorWheel_Button.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.ColorWheel_Button.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.ColorWheel_Button.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.ColorWheel_Button.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ColorWheel_Button.ForeColor = System.Drawing.Color.White;
+            this.ColorWheel_Button.Location = new System.Drawing.Point(192, -1);
+            this.ColorWheel_Button.Name = "ColorWheel_Button";
+            this.ColorWheel_Button.Size = new System.Drawing.Size(17, 17);
+            this.ColorWheel_Button.TabIndex = 3;
+            this.ColorWheel_Button.Click += new System.EventHandler(this.ColorWheel_Button_Click);
+            // 
+            // CoresAlerta_Check
+            // 
+            this.CoresAlerta_Check.AutoSize = true;
+            this.CoresAlerta_Check.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CoresAlerta_Check.CheckedState.BorderRadius = 0;
+            this.CoresAlerta_Check.CheckedState.BorderThickness = 0;
+            this.CoresAlerta_Check.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CoresAlerta_Check.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CoresAlerta_Check.ForeColor = System.Drawing.Color.White;
+            this.CoresAlerta_Check.Location = new System.Drawing.Point(21, -1);
+            this.CoresAlerta_Check.Name = "CoresAlerta_Check";
+            this.CoresAlerta_Check.Size = new System.Drawing.Size(119, 20);
+            this.CoresAlerta_Check.TabIndex = 2;
+            this.CoresAlerta_Check.Text = "Cores de Alerta";
+            this.CoresAlerta_Check.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CoresAlerta_Check.UncheckedState.BorderRadius = 0;
+            this.CoresAlerta_Check.UncheckedState.BorderThickness = 0;
+            this.CoresAlerta_Check.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CoresAlerta_Check.CheckedChanged += new System.EventHandler(this.CoresAlerta_Check_CheckedChanged);
+            // 
+            // GRAFICOS_CHECK
+            // 
+            this.GRAFICOS_CHECK.AutoSize = true;
+            this.GRAFICOS_CHECK.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.GRAFICOS_CHECK.CheckedState.BorderRadius = 0;
+            this.GRAFICOS_CHECK.CheckedState.BorderThickness = 0;
+            this.GRAFICOS_CHECK.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.GRAFICOS_CHECK.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GRAFICOS_CHECK.ForeColor = System.Drawing.Color.White;
+            this.GRAFICOS_CHECK.Location = new System.Drawing.Point(192, 206);
+            this.GRAFICOS_CHECK.Name = "GRAFICOS_CHECK";
+            this.GRAFICOS_CHECK.Size = new System.Drawing.Size(94, 20);
+            this.GRAFICOS_CHECK.TabIndex = 17;
+            this.GRAFICOS_CHECK.Text = "GRÁFICOS";
+            this.GRAFICOS_CHECK.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.GRAFICOS_CHECK.UncheckedState.BorderRadius = 0;
+            this.GRAFICOS_CHECK.UncheckedState.BorderThickness = 0;
+            this.GRAFICOS_CHECK.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.GRAFICOS_CHECK.CheckedChanged += new System.EventHandler(this.GRAFICOS_CHECK_CheckedChanged);
             // 
             // Config
             // 
@@ -283,10 +582,10 @@
             this.Controls.Add(this.CloseConfig_button);
             this.Controls.Add(this.PropriedadesButton);
             this.Controls.Add(this.LogsButton);
+            this.Controls.Add(this.PanelMonitoramento_Config);
             this.Controls.Add(this.MonitoramentoButton);
             this.Controls.Add(this.GeralButton);
             this.Controls.Add(this.Config_SeparatorV);
-            this.Controls.Add(this.PanelMonitoramento_Config);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Config";
@@ -315,7 +614,21 @@
         private Guna.UI2.WinForms.Guna2Button BuscarErrosButton;
         private Guna.UI2.WinForms.Guna2HtmlLabel BuscarErrosLabel;
         private Guna.UI2.WinForms.Guna2Panel PanelMonitoramento_Config;
-        private Guna.UI2.WinForms.Guna2TextBox AtalhoMonitoramento;
-        private Guna.UI2.WinForms.Guna2HtmlLabel Hotkey_Monitoramento;
+        private Guna.UI2.WinForms.Guna2CheckBox CoresAlerta_Check;
+        private Guna.UI2.WinForms.Guna2Button ColorWheel_Button;
+        private Guna.UI2.WinForms.Guna2HtmlLabel SCor_Label;
+        private Guna.UI2.WinForms.Guna2CheckBox GPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox CONSGPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox TEMPGPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox VRAM_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox USOGPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox RAM_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox CONSCPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox TEMPCPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox CLOCKCPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox USOCPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox CPU_CHECK;
+        private Guna.UI2.WinForms.Guna2CheckBox NomeHardware_Button;
+        private Guna.UI2.WinForms.Guna2CheckBox GRAFICOS_CHECK;
     }
 }

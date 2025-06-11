@@ -6,37 +6,86 @@ using System.Linq;
 
 namespace SysCore
 {
-    public class GraphPanel : Panel
+    public class GraphPanel : Form
     {
         private List<float> cpuValues;
         private List<float> ramValues;
         private List<float> gpuValues;
         private Timer updateTimer;
         private const int MAX_POINTS = 60;
+        private Color cpuColor = Color.Cyan;
+        private Color gpuColor = Color.Lime;
+        private Color ramColor = Color.Yellow;
 
         public GraphPanel()
         {
-            InitializeComponents();
-        }
-
-        private void InitializeComponents()
-        {
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.TopMost = true;
+            this.ShowInTaskbar = false;
+            this.BackColor = Color.Black;
+            this.TransparencyKey = Color.Black;
+            this.Size = new Size(320, 120);
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width - 10, 10);
             this.DoubleBuffered = true;
             cpuValues = new List<float>();
             ramValues = new List<float>();
             gpuValues = new List<float>();
-
             updateTimer = new Timer();
             updateTimer.Interval = 1000;
-            updateTimer.Tick += UpdateTimer_Tick;
+            updateTimer.Tick += (s, e) => this.Invalidate();
             updateTimer.Start();
-
             this.Paint += GraphPanel_Paint;
         }
 
-        private void UpdateTimer_Tick(object sender, EventArgs e)
+        private void GraphPanel_Paint(object sender, PaintEventArgs e)
         {
-            this.Invalidate();
+            if (cpuValues.Count == 0) return;
+
+            var g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            var width = this.Width;
+            var height = this.Height;
+            var padding = 10;
+            int points = cpuValues.Count;
+            float xStep = (float)(width - 2 * padding) / (MAX_POINTS - 1);
+
+            // Espaçamento vertical para as 3 linhas
+            float bandHeight = (height - 2 * padding) / 3f;
+            float cpuOffset = 0;
+            float gpuOffset = bandHeight;
+            float ramOffset = 2 * bandHeight;
+
+            void DrawLine(List<float> values, Color color, float yOffset)
+            {
+                if (values.Count < 2) return;
+                using (var pen = new Pen(color, 2.5f))
+                {
+                    for (int i = 1; i < values.Count; i++)
+                    {
+                        float x1 = padding + (i - 1) * xStep;
+                        float x2 = padding + i * xStep;
+                        float y1 = height - padding - yOffset - (values[i - 1] / 100f) * bandHeight;
+                        float y2 = height - padding - yOffset - (values[i] / 100f) * bandHeight;
+                        g.DrawLine(pen, x1, y1, x2, y2);
+                    }
+                }
+            }
+
+            DrawLine(cpuValues, cpuColor, cpuOffset);
+            DrawLine(gpuValues, gpuColor, gpuOffset);
+            DrawLine(ramValues, ramColor, ramOffset);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                updateTimer.Stop();
+                updateTimer.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         public void AddValues(float cpu, float ram, float gpu)
@@ -53,70 +102,16 @@ namespace SysCore
             }
         }
 
-        private void GraphPanel_Paint(object sender, PaintEventArgs e)
+        private void InitializeComponent()
         {
-            if (cpuValues.Count == 0) return;
+            this.SuspendLayout();
+            // 
+            // GraphPanel
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "GraphPanel";
+            this.ResumeLayout(false);
 
-            var g = e.Graphics;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-            var width = this.Width;
-            var height = this.Height;
-            var padding = 10;
-
-            // Desenha o fundo
-            using (var brush = new SolidBrush(Color.FromArgb(50, 0, 0, 0)))
-            {
-                g.FillRectangle(brush, 0, 0, width, height);
-            }
-
-            // Desenha as linhas de grade
-            using (var pen = new Pen(Color.FromArgb(30, 255, 255, 255)))
-            {
-                for (int i = 0; i <= 4; i++)
-                {
-                    var y = padding + (height - 2 * padding) * i / 4;
-                    g.DrawLine(pen, padding, y, width - padding, y);
-                }
-            }
-
-            // Desenha os gráficos
-            DrawGraph(g, cpuValues, Color.Red, width, height, padding);
-            DrawGraph(g, ramValues, Color.Green, width, height, padding);
-            DrawGraph(g, gpuValues, Color.Blue, width, height, padding);
-        }
-
-        private void DrawGraph(Graphics g, List<float> values, Color color, int width, int height, int padding)
-        {
-            if (values.Count < 2) return;
-
-            var points = new PointF[values.Count];
-            var maxValue = values.Max();
-            var minValue = values.Min();
-            var range = maxValue - minValue;
-            if (range == 0) range = 1;
-
-            for (int i = 0; i < values.Count; i++)
-            {
-                var x = padding + (width - 2 * padding) * i / (values.Count - 1);
-                var y = padding + (height - 2 * padding) * (1 - (values[i] - minValue) / range);
-                points[i] = new PointF(x, y);
-            }
-
-            using (var pen = new Pen(color, 2))
-            {
-                g.DrawLines(pen, points);
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                updateTimer.Stop();
-                updateTimer.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 } 

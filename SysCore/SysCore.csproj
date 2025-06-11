@@ -122,7 +122,7 @@
       <DependentUpon>Config.cs</DependentUpon>
     </Compile>
     <Compile Include="GraphPanel.cs">
-      <SubType>Component</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="OverlayForm.cs">
       <SubType>Form</SubType>
@@ -137,6 +137,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Config.resx">
       <DependentUpon>Config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphPanel.resx">
+      <DependentUpon>GraphPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SysCore.resx">
       <DependentUpon>SysCore.cs</DependentUpon>

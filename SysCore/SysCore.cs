@@ -61,6 +61,7 @@ namespace SysCore
 
         public SysCore_Form()
         {
+            configForm = new Config();
             InitializeComponent();
             info_cpu();
             
@@ -127,34 +128,9 @@ namespace SysCore
 
             CentralizarLabels();
 
-            overlayForm = new OverlayForm();
-            configForm = new Config();
-            // Registra hotkey inicial (pode ser ajustado ao salvar config)
-            RegisterOverlayHotkey();
-        }
-
-        public void RegisterOverlayHotkey()
-        {
-            try { HotkeyManager.Current.Remove("OverlayHotkey"); } catch { }
-            if (configForm.HotkeyMonitoramento != Keys.None)
-            {
-                HotkeyManager.Current.AddOrReplace("OverlayHotkey", configForm.HotkeyMonitoramento, OnOverlayHotkey);
-            }
-        }
-
-        private void OnOverlayHotkey(object sender, HotkeyEventArgs e)
-        {
-            if (overlayForm.Visible)
-                overlayForm.Hide();
-            else
-                overlayForm.Show();
-            e.Handled = true;
-        }
-
-        // Exemplo: chame RegisterOverlayHotkey() após o usuário definir um novo atalho
-        private void ConfigFechouOuSalvou()
-        {
-            RegisterOverlayHotkey();
+            RamPG_Circle.FillColor = Color.Green;
+            GpuPG_Circle.FillColor = Color.Green;
+            overlayForm = new OverlayForm(configForm);
         }
 
         private void guna2ImageButton1_Click(object sender, EventArgs e)
@@ -359,7 +335,6 @@ namespace SysCore
 
         private void Conf_Button_Click(object sender, EventArgs e)
         {
-            Config configForm = new Config();
             configForm.StartPosition = FormStartPosition.Manual;
             configForm.Location = this.Location;
             configForm.Show();
@@ -367,7 +342,7 @@ namespace SysCore
 
         private void InitializeOverlay()
         {
-            overlayForm = new OverlayForm();
+            overlayForm = new OverlayForm(configForm);
             overlayForm.Show();
         }
 

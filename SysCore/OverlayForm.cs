@@ -11,15 +11,75 @@ namespace SysCore
     public class OverlayForm : Form
     {
         private Timer updateTimer;
-        private Label overlayLabel;
+        private float cpuUsage, cpuTemp, cpuClock, cpuPower;
+        private float ramUsage, ramUsed, ramTotal;
+        private float gpuUsage, gpuTemp, gpuMemUsed, gpuMemTotal, gpuPower;
+        private string vramStr = "--";
         private Font overlayFont;
+        private bool alertColorsEnabled = false;
         private Computer computer;
+        private Config configForm;
+        private bool showHardwareName = false;
+        private string cpuModel = "CPU";
+        private string gpuModel = "GPU";
+        // Estados das métricas
+        private bool showCPU, showUSOCPU, showCLOCKCPU, showTEMPCPU, showCONSCPU;
+        private bool showGPU, showUSOGPU, showVRAM, showTEMPGPU, showCONSGPU;
+        private bool showRAM;
+        private GraphPanel graphPanel;
+        private bool showGraph = false;
 
-        public OverlayForm()
+        public OverlayForm(Config config)
         {
+            this.DoubleBuffered = true;
             InitializeComponents();
             InitializeHardwareMonitor();
             StartMonitoring();
+            configForm = config;
+            configForm.ColorChanged += (s, color) => { this.Invalidate(); };
+            configForm.CoresAlertaChanged += (s, enabled) => { alertColorsEnabled = enabled; this.Invalidate(); };
+            configForm.NomeHardwareChanged += (s, enabled) => { showHardwareName = enabled; this.Invalidate(); };
+            configForm.MonitoramentoSelectionChanged += (s, sel) => {
+                showCPU = sel.ShowCPU;
+                showUSOCPU = sel.ShowUSOCPU;
+                showCLOCKCPU = sel.ShowCLOCKCPU;
+                showTEMPCPU = sel.ShowTEMPCPU;
+                showCONSCPU = sel.ShowCONSCPU;
+                showGPU = sel.ShowGPU;
+                showUSOGPU = sel.ShowUSOGPU;
+                showVRAM = sel.ShowVRAM;
+                showTEMPGPU = sel.ShowTEMPGPU;
+                showCONSGPU = sel.ShowCONSGPU;
+                showRAM = sel.ShowRAM;
+                this.Invalidate();
+            };
+            configForm.GraficosChanged += (s, enabled) => {
+                showGraph = enabled;
+                if (enabled)
+                {
+                    if (graphPanel == null || graphPanel.IsDisposed)
+                        graphPanel = new GraphPanel();
+                    // Sempre posicionar no canto superior direito do monitor
+                    var screen = Screen.PrimaryScreen.Bounds;
+                    graphPanel.Location = new Point(screen.Width - graphPanel.Width - 10, 10);
+                    graphPanel.Show();
+                }
+                else
+                {
+                    if (graphPanel != null && !graphPanel.IsDisposed)
+                        graphPanel.Hide();
+                }
+                this.Invalidate();
+            };
+            // Inicializar GraphPanel para canto superior direito, tamanho fixo
+            graphPanel = new GraphPanel();
+            graphPanel.Size = new Size(320, 120);
+            graphPanel.Location = new Point(this.Width - graphPanel.Width - 10, 10);
+            graphPanel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            graphPanel.Visible = false;
+            this.SizeChanged += (s, e) => {
+                graphPanel.Location = new Point(this.Width - graphPanel.Width - 10, 10);
+            };
         }
 
         private void InitializeComponents()
@@ -29,25 +89,10 @@ namespace SysCore
             this.ShowInTaskbar = false;
             this.BackColor = Color.Black;
             this.TransparencyKey = Color.Black;
-            this.Size = new Size(420, 160);
+            this.Size = new Size(320, 370);
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(0, 0);
-
-            overlayFont = new Font("Segoe UI", 16, FontStyle.Regular);
-
-            overlayLabel = new Label
-            {
-                ForeColor = Color.White,
-                BackColor = Color.Transparent,
-                Font = overlayFont,
-                AutoSize = false,
-                Size = new Size(400, 140),
-                Location = new Point(10, 10),
-                TextAlign = ContentAlignment.TopLeft,
-                Padding = new Padding(0),
-            };
-
-            this.Controls.Add(overlayLabel);
+            overlayFont = new Font("Consolas", 16, FontStyle.Bold);
 
             updateTimer = new Timer();
             updateTimer.Interval = 1000;
@@ -80,49 +125,64 @@ namespace SysCore
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             UpdateHardwareInfo();
+            if (showGraph && graphPanel != null && graphPanel.Visible)
+                graphPanel.AddValues(cpuUsage, ramUsage, gpuUsage);
+            this.Invalidate();
         }
 
         private void UpdateHardwareInfo()
         {
             try
             {
-                float cpuTemp = 0, cpuClock = 0, cpuUsage = 0;
-                int cpuCores = 0, cpuThreads = Environment.ProcessorCount;
-                float ramUsed = 0, ramTotal = 0, ramUsage = 0;
-                float gpuTemp = 0, gpuUsage = 0, gpuMemUsed = 0, gpuMemTotal = 0;
-                string gpuName = "";
-
+                cpuTemp = cpuClock = cpuUsage = cpuPower = 0;
+                ramUsed = ramTotal = ramUsage = 0;
+                gpuTemp = gpuUsage = gpuMemUsed = gpuMemTotal = gpuPower = 0;
+                vramStr = "--";
                 foreach (IHardware hardware in computer.Hardware)
                 {
                     hardware.Update();
                     if (hardware.HardwareType == HardwareType.CPU)
                     {
+                        if (string.IsNullOrEmpty(cpuModel) || cpuModel == "CPU")
+                        {
+                            cpuModel = hardware.Name;
+                            cpuModel = RemoveManufacturer(cpuModel);
+                        }
                         foreach (ISensor sensor in hardware.Sensors)
                         {
                             if (sensor.SensorType == SensorType.Temperature && sensor.Value.HasValue && cpuTemp == 0)
                                 cpuTemp = sensor.Value.Value;
-                            else if (sensor.SensorType == SensorType.Clock && sensor.Value.HasValue && cpuClock == 0)
-                                cpuClock = sensor.Value.Value / 1000f; // MHz para GHz
+                            else if (sensor.SensorType == SensorType.Clock && sensor.Value.HasValue)
+                            {
+                                float currentClock = sensor.Value.Value / 1000f; // MHz para GHz
+                                if (currentClock > cpuClock)
+                                    cpuClock = currentClock;
+                            }
                             else if (sensor.SensorType == SensorType.Load && sensor.Name.ToLower().Contains("total") && sensor.Value.HasValue)
                                 cpuUsage = sensor.Value.Value;
+                            else if (sensor.SensorType == SensorType.Power && sensor.Value.HasValue)
+                                cpuPower = sensor.Value.Value;
                         }
-                        cpuCores = hardware.Sensors.Count(s => s.Name.ToLower().Contains("core #"));
                     }
                     else if (hardware.HardwareType == HardwareType.RAM)
                     {
                         foreach (ISensor sensor in hardware.Sensors)
                         {
                             if (sensor.SensorType == SensorType.Data && sensor.Name.ToLower().Contains("used") && sensor.Value.HasValue)
-                                ramUsed = sensor.Value.Value;
+                                ramUsed = (float)Math.Floor(sensor.Value.Value * 1024f); // GB para MB, arredondado para baixo
                             else if (sensor.SensorType == SensorType.Data && sensor.Name.ToLower().Contains("available") && sensor.Value.HasValue)
-                                ramTotal = ramUsed + sensor.Value.Value;
+                                ramTotal = (float)Math.Floor((ramUsed / 1024f + sensor.Value.Value) * 1024f); // GB para MB, arredondado para baixo
                             else if (sensor.SensorType == SensorType.Load && sensor.Value.HasValue)
                                 ramUsage = sensor.Value.Value;
                         }
                     }
                     else if (hardware.HardwareType == HardwareType.GpuNvidia || hardware.HardwareType == HardwareType.GpuAti)
                     {
-                        gpuName = hardware.Name;
+                        if (string.IsNullOrEmpty(gpuModel) || gpuModel == "GPU")
+                        {
+                            gpuModel = hardware.Name;
+                            gpuModel = RemoveManufacturer(gpuModel);
+                        }
                         foreach (ISensor sensor in hardware.Sensors)
                         {
                             if (sensor.SensorType == SensorType.Temperature && sensor.Value.HasValue && gpuTemp == 0)
@@ -130,33 +190,105 @@ namespace SysCore
                             else if (sensor.SensorType == SensorType.Load && sensor.Name.ToLower().Contains("core") && sensor.Value.HasValue)
                                 gpuUsage = sensor.Value.Value;
                             else if (sensor.SensorType == SensorType.SmallData && sensor.Name.ToLower().Contains("used") && sensor.Value.HasValue)
-                                gpuMemUsed = sensor.Value.Value;
+                            {
+                                float val = sensor.Value.Value;
+                                if (val < 256)
+                                    gpuMemUsed = (float)Math.Floor(val * 1024f);
+                                else
+                                    gpuMemUsed = (float)Math.Floor(val);
+                            }
                             else if (sensor.SensorType == SensorType.SmallData && sensor.Name.ToLower().Contains("total") && sensor.Value.HasValue)
-                                gpuMemTotal = sensor.Value.Value;
+                            {
+                                float val = sensor.Value.Value;
+                                if (val < 256)
+                                    gpuMemTotal = (float)Math.Floor(val * 1024f);
+                                else
+                                    gpuMemTotal = (float)Math.Floor(val);
+                            }
+                            else if (sensor.SensorType == SensorType.Power && sensor.Value.HasValue)
+                                gpuPower = sensor.Value.Value;
                         }
                     }
                 }
-
-                // Ajuste de RAM para exibir simplificado
-                string ramStr = $"{ramUsed,4:0.0}G/{ramTotal,4:0.0}GB";
-
-                // Ajuste de VRAM para exibir simplificado
-                if (gpuMemUsed > 100) // Provavelmente está em MB
-                    gpuMemUsed = gpuMemUsed / 1024f;
-                string vramStr = gpuMemUsed > 0 ? $"{gpuMemUsed:0.0}GB" : "--";
-
-                // Monta texto do overlay
-                string overlayText = "";
-                overlayText += $"CPU:  {cpuUsage,4:0}%  {cpuTemp,4:0}°C  {cpuClock,4:0.00} GHz\n";
-                overlayText += $"RAM:  {ramStr}  {ramUsage,4:0}%\n";
-                overlayText += $"GPU:  {gpuUsage,4:0}%  {gpuTemp,4:0}°C  {vramStr} VRAM\n";
-
-                overlayLabel.Text = overlayText;
+                vramStr = (gpuMemUsed > 0 && gpuMemUsed < 65536) ? $"{(int)gpuMemUsed}MB" : "N/A";
             }
-            catch (Exception ex)
+            catch { }
+        }
+
+        private string RemoveManufacturer(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return name;
+            // Remover marcas comuns
+            string[] fabricantes = { "Intel", "AMD", "NVIDIA", "GeForce", "Radeon", "Graphics", "Processor", "CPU", "(R)", "(TM)", "APU", "with", "Dual", "Quad", "Core", "Six", "Eight", "Twelve", "Sixteen", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety", "Hundred", "Family", "Series", "Mobile", "Desktop", "Laptop", "Processor", "Graphics" };
+            foreach (var fab in fabricantes)
+                name = System.Text.RegularExpressions.Regex.Replace(name, $@"\b{fab}\b", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            // Remover espaços duplicados
+            name = System.Text.RegularExpressions.Regex.Replace(name, "\\s+", " ").Trim();
+            // Corrigir prefixos comuns
+            if (name.StartsWith("RTX", StringComparison.OrdinalIgnoreCase) || name.StartsWith("GTX", StringComparison.OrdinalIgnoreCase) || name.StartsWith("RX", StringComparison.OrdinalIgnoreCase))
+                return name.ToUpper();
+            if (name.StartsWith("i", StringComparison.OrdinalIgnoreCase) && name.Length > 2 && char.IsDigit(name[1]))
+                return name.ToUpper();
+            return name;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            var g = e.Graphics;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            int y = 10;
+            int leftPad = 10;
+            int rightPad = 10;
+            // Montar dinamicamente labels/values
+            var labels = new List<string>();
+            var values = new List<string>();
+            var groupColors = new List<Color>();
+            if (showGPU) { labels.Add(showHardwareName ? gpuModel : "GPU"); values.Add($"{gpuUsage,4:0}%"); groupColors.Add(Color.Lime); }
+            if (showUSOGPU) { labels.Add("USO GPU"); values.Add($"{gpuUsage,4:0}%"); groupColors.Add(Color.Lime); }
+            if (showVRAM) { labels.Add("VRAM"); values.Add(vramStr); groupColors.Add(Color.Lime); }
+            if (showTEMPGPU) { labels.Add("TEMP GPU"); values.Add($"{gpuTemp,4:0}°C"); groupColors.Add(Color.Lime); }
+            if (showCONSGPU) { labels.Add("Cons. GPU"); values.Add($"{gpuPower,4:0}W"); groupColors.Add(Color.Lime); }
+            if (showCPU) { labels.Add(showHardwareName ? cpuModel : "CPU"); values.Add($"{cpuUsage,4:0}%"); groupColors.Add(Color.Cyan); }
+            if (showUSOCPU) { labels.Add("USO CPU"); values.Add($"{cpuUsage,4:0}%"); groupColors.Add(Color.Cyan); }
+            if (showCLOCKCPU) { labels.Add("CLOCK CPU"); values.Add(cpuClock.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) + " GHz"); groupColors.Add(Color.Cyan); }
+            if (showTEMPCPU) { labels.Add("TEMP CPU"); values.Add($"{cpuTemp,4:0}°C"); groupColors.Add(Color.Cyan); }
+            if (showCONSCPU) { labels.Add("Cons. CPU"); values.Add($"{cpuPower,4:0}W"); groupColors.Add(Color.Cyan); }
+            if (showRAM) { labels.Add("RAM"); values.Add($"{(int)ramUsed}MB"); groupColors.Add(Color.Yellow); }
+            // Se nada estiver selecionado, não desenha nada
+            for (int i = 0; i < labels.Count; i++)
             {
-                overlayLabel.Text = "Erro ao acessar sensores: " + ex.Message;
+                using (var brush = new SolidBrush(groupColors[i]))
+                    g.DrawString(labels[i], overlayFont, brush, leftPad, y);
+                Color valColor = groupColors[i];
+                if (alertColorsEnabled)
+                {
+                    float val = 0;
+                    if (labels[i].Contains("USO GPU")) val = gpuUsage;
+                    else if (labels[i].Contains("USO CPU")) val = cpuUsage;
+                    else if (labels[i] == "VRAM") val = gpuMemUsed > 0 ? (gpuMemUsed / (gpuMemTotal > 0 ? gpuMemTotal : 1)) * 100 : 0;
+                    else if (labels[i] == "TEMP GPU") val = gpuTemp;
+                    else if (labels[i] == "Cons. GPU") val = gpuPower;
+                    else if (labels[i] == "TEMP CPU") val = cpuTemp;
+                    else if (labels[i] == "Cons. CPU") val = cpuPower;
+                    else if (labels[i] == "RAM") val = ramUsed > 0 && ramTotal > 0 ? (ramUsed / ramTotal) * 100 : 0;
+                    else if (labels[i] == (showHardwareName ? gpuModel : "GPU")) val = gpuUsage;
+                    else if (labels[i] == (showHardwareName ? cpuModel : "CPU")) val = cpuUsage;
+                    valColor = GetAlertColor(val);
+                }
+                SizeF valSize = g.MeasureString(values[i], overlayFont);
+                using (var brush = new SolidBrush(valColor))
+                    g.DrawString(values[i], overlayFont, brush, this.Width - valSize.Width - rightPad, y);
+                y += (int)valSize.Height + 2;
             }
+        }
+
+        private Color GetAlertColor(float value)
+        {
+            if (value <= 40) return Color.Green;
+            if (value <= 50) return Color.Yellow;
+            if (value <= 90) return Color.Orange;
+            return Color.Red;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
