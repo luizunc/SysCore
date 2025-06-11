@@ -46,6 +46,7 @@
             this.gpu = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.DiskPG_Circle = new Guna.UI2.WinForms.Guna2CircleProgressBar();
             this.disco = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.GeralLogo = new Guna.UI2.WinForms.Guna2ImageButton();
             this.PainelGeral_Painel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,11 +131,12 @@
             this.Conf_Button.ImageOffset = new System.Drawing.Point(0, 0);
             this.Conf_Button.ImageRotate = 0F;
             this.Conf_Button.ImageSize = new System.Drawing.Size(32, 32);
-            this.Conf_Button.Location = new System.Drawing.Point(12, 395);
+            this.Conf_Button.Location = new System.Drawing.Point(12, 398);
             this.Conf_Button.Name = "Conf_Button";
             this.Conf_Button.PressedState.ImageSize = new System.Drawing.Size(32, 32);
-            this.Conf_Button.Size = new System.Drawing.Size(46, 43);
+            this.Conf_Button.Size = new System.Drawing.Size(40, 40);
             this.Conf_Button.TabIndex = 5;
+            this.Conf_Button.Click += new System.EventHandler(this.Conf_Button_Click);
             // 
             // PainelGeral_Painel
             // 
@@ -254,12 +256,30 @@
             this.disco.TabIndex = 7;
             this.disco.Text = "DISCO";
             // 
+            // GeralLogo
+            // 
+            this.GeralLogo.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.GeralLogo.HoverState.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            this.GeralLogo.HoverState.ImageSize = new System.Drawing.Size(35, 35);
+            this.GeralLogo.Image = ((System.Drawing.Image)(resources.GetObject("GeralLogo.Image")));
+            this.GeralLogo.ImageOffset = new System.Drawing.Point(0, 0);
+            this.GeralLogo.ImageRotate = 0F;
+            this.GeralLogo.ImageSize = new System.Drawing.Size(35, 35);
+            this.GeralLogo.Location = new System.Drawing.Point(26, 93);
+            this.GeralLogo.Name = "GeralLogo";
+            this.GeralLogo.PressedState.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
+            this.GeralLogo.PressedState.ImageSize = new System.Drawing.Size(35, 35);
+            this.GeralLogo.Size = new System.Drawing.Size(51, 38);
+            this.GeralLogo.TabIndex = 8;
+            this.GeralLogo.Click += new System.EventHandler(this.GeralLogo_Click);
+            // 
             // SysCore_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(17)))), ((int)(((byte)(23)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.GeralLogo);
             this.Controls.Add(this.PainelGeral_Painel);
             this.Controls.Add(this.Conf_Button);
             this.Controls.Add(this.guna2Separator1);
@@ -271,6 +291,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SysCore_Form";
             this.Text = "SysCore";
+            this.Load += new System.EventHandler(this.SysCore_Form_Load_1);
             this.PainelGeral_Painel.ResumeLayout(false);
             this.PainelGeral_Painel.PerformLayout();
             this.ResumeLayout(false);
@@ -295,6 +316,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel ram;
         private Guna.UI2.WinForms.Guna2HtmlLabel gpu;
         private Guna.UI2.WinForms.Guna2HtmlLabel disco;
+        private Guna.UI2.WinForms.Guna2ImageButton GeralLogo;
     }
 }
 

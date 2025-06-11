@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Management;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using NHotkey;
+using NHotkey.WindowsForms;
 
 namespace SysCore
 {
@@ -19,6 +21,8 @@ namespace SysCore
         private PerformanceCounter statusdisk;
         private PerformanceCounter statusdiskRead;
         private PerformanceCounter statusdiskWrite;
+        private OverlayForm overlayForm;
+        private Config configForm;
 
         [DllImport("gdi32.dll")]
         private static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, IntPtr lpInitData);
@@ -122,6 +126,35 @@ namespace SysCore
             attAll.Start();
 
             CentralizarLabels();
+
+            overlayForm = new OverlayForm();
+            configForm = new Config();
+            // Registra hotkey inicial (pode ser ajustado ao salvar config)
+            RegisterOverlayHotkey();
+        }
+
+        public void RegisterOverlayHotkey()
+        {
+            try { HotkeyManager.Current.Remove("OverlayHotkey"); } catch { }
+            if (configForm.HotkeyMonitoramento != Keys.None)
+            {
+                HotkeyManager.Current.AddOrReplace("OverlayHotkey", configForm.HotkeyMonitoramento, OnOverlayHotkey);
+            }
+        }
+
+        private void OnOverlayHotkey(object sender, HotkeyEventArgs e)
+        {
+            if (overlayForm.Visible)
+                overlayForm.Hide();
+            else
+                overlayForm.Show();
+            e.Handled = true;
+        }
+
+        // Exemplo: chame RegisterOverlayHotkey() após o usuário definir um novo atalho
+        private void ConfigFechouOuSalvou()
+        {
+            RegisterOverlayHotkey();
         }
 
         private void guna2ImageButton1_Click(object sender, EventArgs e)
@@ -312,6 +345,45 @@ namespace SysCore
         private void SysCore_Form_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void SysCore_Form_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GeralLogo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Conf_Button_Click(object sender, EventArgs e)
+        {
+            Config configForm = new Config();
+            configForm.StartPosition = FormStartPosition.Manual;
+            configForm.Location = this.Location;
+            configForm.Show();
+        }
+
+        private void InitializeOverlay()
+        {
+            overlayForm = new OverlayForm();
+            overlayForm.Show();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            InitializeOverlay();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (overlayForm != null && !overlayForm.IsDisposed)
+            {
+                overlayForm.Close();
+            }
         }
     }
 }
