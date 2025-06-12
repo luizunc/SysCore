@@ -8,7 +8,7 @@ Desenvolver uma aplicação simples e eficiente capaz de monitorar em tempo real
 
 ## 🔍 Funcionalidades
 
-- Monitoramento do uso da **CPU** (porcentagem total e por núcleo)
+- Monitoramento do uso da **CPU** 
 - Monitoramento do uso da **GPU**
 - Monitoramento da **memória RAM**
 - Listagem de **processos ativos**
@@ -36,12 +36,12 @@ Desenvolver uma aplicação simples e eficiente capaz de monitorar em tempo real
 ## 🛠 Tecnologias Utilizadas
 
 - **C#**
-- **GUNA UI** - Framework de interface gráfica
+- **GUNA UI**
 - **.NET Framework 4.8**
-- **WMI** - Windows Management Instrumentation
-- **OpenHardwareMonitorLib** - Biblioteca para monitoramento de hardware
-- **HidLibrary** - Biblioteca para interação com dispositivos USB
-- **ILMerge** - Ferramenta para combinar assemblies em um único executável
+- **WMI** 
+- **OpenHardwareMonitorLib** 
+- **HidLibrary** 
+- **ILMerge** 
 
 ## 🚀 Como Executar
 
