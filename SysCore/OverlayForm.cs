@@ -1,3 +1,11 @@
+//  ######   ####     ##  ##   ######   #####
+//  ##       ## ##    ##  ##       ##   ##  ##
+//  ##       ##  ##   ##  ##      ##    ##  ##
+//  ####     ##  ##   ##  ##     ##     #####
+//  ##       ##  ##   ##  ##    ##      ##
+//  ##       ## ##    ##  ##   ##       ##
+//  ######   ####      ####    ######   ##
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,6 +17,9 @@ using System.Runtime.InteropServices;
 
 namespace SysCore
 {
+    //
+    // chatice isso, deu muito erro por causa de sensores.
+    //
     public partial class OverlayForm : Form
     {
         private Timer updateTimer;
@@ -23,12 +34,30 @@ namespace SysCore
         private bool showHardwareName = false;
         private string cpuModel = "CPU";
         private string gpuModel = "GPU";
-        // Estados das métricas
         private bool showCPU, showUSOCPU, showCLOCKCPU, showTEMPCPU, showCONSCPU;
         private bool showGPU, showUSOGPU, showVRAM, showTEMPGPU, showCONSGPU;
         private bool showRAM;
         private GraphPanel graphPanel;
         private bool showGraph = false;
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // OverlayForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 280);
+            this.Name = "OverlayForm";
+            this.Load += new System.EventHandler(this.OverlayForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void OverlayForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private Color overlayBackgroundColor = Color.Transparent;
         private bool showOverlayBackground = false;
 
@@ -42,7 +71,7 @@ namespace SysCore
             get
             {
                 CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x80000; // WS_EX_LAYERED
+                cp.ExStyle |= 0x80000;
                 return cp;
             }
         }
@@ -89,7 +118,9 @@ namespace SysCore
                 {
                     if (graphPanel == null || graphPanel.IsDisposed)
                         graphPanel = new GraphPanel();
-                    // Sempre posicionar no canto superior direito do monitor
+                    //
+                    // canto superior direito do monitor(por enquanto)
+                    //
                     var screen = Screen.PrimaryScreen.Bounds;
                     graphPanel.Location = new Point(screen.Width - graphPanel.Width - 10, 10);
                     graphPanel.Show();
@@ -101,7 +132,6 @@ namespace SysCore
                 }
                 this.Invalidate();
             };
-            // Inicializar GraphPanel para canto superior direito, tamanho fixo
             graphPanel = new GraphPanel();
             graphPanel.Size = new Size(320, 120);
             graphPanel.Location = new Point(this.Width - graphPanel.Width - 10, 10);
@@ -119,7 +149,7 @@ namespace SysCore
             this.ShowInTaskbar = false;
             this.BackColor = Color.Black;
             this.TransparencyKey = Color.Black;
-            this.Size = new Size(280, 300);
+            this.Size = new Size(380, 600);
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(0, 0);
             overlayFont = new Font("Segoe UI", 14, FontStyle.Bold);
@@ -184,7 +214,7 @@ namespace SysCore
                                 cpuTemp = sensor.Value.Value;
                             else if (sensor.SensorType == SensorType.Clock && sensor.Value.HasValue)
                             {
-                                float currentClock = sensor.Value.Value / 1000f; // MHz para GHz
+                                float currentClock = sensor.Value.Value / 1000f;
                                 if (currentClock > cpuClock)
                                     cpuClock = currentClock;
                             }
@@ -199,9 +229,9 @@ namespace SysCore
                         foreach (ISensor sensor in hardware.Sensors)
                         {
                             if (sensor.SensorType == SensorType.Data && sensor.Name.ToLower().Contains("used") && sensor.Value.HasValue)
-                                ramUsed = (float)Math.Floor(sensor.Value.Value * 1024f); // GB para MB, arredondado para baixo
+                                ramUsed = (float)Math.Floor(sensor.Value.Value * 1024f);
                             else if (sensor.SensorType == SensorType.Data && sensor.Name.ToLower().Contains("available") && sensor.Value.HasValue)
-                                ramTotal = (float)Math.Floor((ramUsed / 1024f + sensor.Value.Value) * 1024f); // GB para MB, arredondado para baixo
+                                ramTotal = (float)Math.Floor((ramUsed / 1024f + sensor.Value.Value) * 1024f);
                             else if (sensor.SensorType == SensorType.Load && sensor.Value.HasValue)
                                 ramUsage = sensor.Value.Value;
                         }
@@ -248,13 +278,13 @@ namespace SysCore
         private string RemoveManufacturer(string name)
         {
             if (string.IsNullOrEmpty(name)) return name;
-            // Remover marcas comuns
+
             string[] fabricantes = { "Intel", "AMD", "NVIDIA", "GeForce", "Radeon", "Graphics", "Processor", "CPU", "(R)", "(TM)", "APU", "with", "Dual", "Quad", "Core", "Six", "Eight", "Twelve", "Sixteen", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety", "Hundred", "Family", "Series", "Mobile", "Desktop", "Laptop", "Processor", "Graphics" };
             foreach (var fab in fabricantes)
                 name = System.Text.RegularExpressions.Regex.Replace(name, $@"\b{fab}\b", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            // Remover espaços duplicados
+
             name = System.Text.RegularExpressions.Regex.Replace(name, "\\s+", " ").Trim();
-            // Corrigir prefixos comuns
+
             if (name.StartsWith("RTX", StringComparison.OrdinalIgnoreCase) || name.StartsWith("GTX", StringComparison.OrdinalIgnoreCase) || name.StartsWith("RX", StringComparison.OrdinalIgnoreCase))
                 return name.ToUpper();
             if (name.StartsWith("i", StringComparison.OrdinalIgnoreCase) && name.Length > 2 && char.IsDigit(name[1]))
@@ -276,8 +306,10 @@ namespace SysCore
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             int y = 10;
             int leftPad = 10;
-            int rightPad = 10;
-            // Montar dinamicamente labels/values
+            int valuePad = 160;
+            //
+            // dinamicamente labels/values
+            //
             var labels = new List<string>();
             var values = new List<string>();
             var groupColors = new List<Color>();
@@ -292,7 +324,9 @@ namespace SysCore
             if (showTEMPCPU) { labels.Add("TEMP CPU"); values.Add($"{cpuTemp,4:0}°C"); groupColors.Add(Color.Cyan); }
             if (showCONSCPU) { labels.Add("CONS. CPU"); values.Add($"{cpuPower,4:0}W"); groupColors.Add(Color.Cyan); }
             if (showRAM) { labels.Add("RAM"); values.Add($"{(int)ramUsed}MB"); groupColors.Add(Color.Yellow); }
-            // Se nada estiver selecionado, não desenha nada
+            //
+            // 0 seleção, não desenha nada
+            //
             for (int i = 0; i < labels.Count; i++)
             {
                 using (var brush = new SolidBrush(groupColors[i]))
@@ -315,7 +349,7 @@ namespace SysCore
                 }
                 SizeF valSize = g.MeasureString(values[i], overlayFont);
                 using (var brush = new SolidBrush(valColor))
-                    g.DrawString(values[i], overlayFont, brush, this.Width - valSize.Width - rightPad, y);
+                    g.DrawString(values[i], overlayFont, brush, leftPad + valuePad, y);
                 y += (int)valSize.Height + 2;
             }
         }
@@ -336,3 +370,11 @@ namespace SysCore
         }
     }
 }
+
+//  ######   ####     ##  ##   ######   #####
+//  ##       ## ##    ##  ##       ##   ##  ##
+//  ##       ##  ##   ##  ##      ##    ##  ##
+//  ####     ##  ##   ##  ##     ##     #####
+//  ##       ##  ##   ##  ##    ##      ##
+//  ##       ## ##    ##  ##   ##       ##
+//  ######   ####      ####    ######   ##

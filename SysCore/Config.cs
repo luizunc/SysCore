@@ -1,4 +1,12 @@
-﻿using System;
+﻿//  ######   ####     ##  ##   ######   #####
+//  ##       ## ##    ##  ##       ##   ##  ##
+//  ##       ##  ##   ##  ##      ##    ##  ##
+//  ####     ##  ##   ##  ##     ##     #####
+//  ##       ##  ##   ##  ##    ##      ##
+//  ##       ## ##    ##  ##   ##       ##
+//  ######   ####      ####    ######   ##
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -86,7 +94,7 @@ namespace SysCore
 
         private void CloseConfig_button_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
 
         private void Hotkey_Monitoramento_Click(object sender, EventArgs e)
@@ -111,7 +119,6 @@ namespace SysCore
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     SelectedColor = dlg.Color;
-                    // Notifica apenas a mudança de cor dos nomes dos dispositivos
                     DeviceNameColorChanged?.Invoke(this, SelectedColor);
                 }
             }
@@ -195,7 +202,6 @@ namespace SysCore
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     SelectedColor = dlg.Color;
-                    // Não preencher o fundo do label
                     ColorChanged?.Invoke(this, SelectedColor);
                 }
             }
@@ -305,7 +311,6 @@ namespace SysCore
                 {
                     while (!cancellationToken.IsCancellationRequested && stopwatch.Elapsed.TotalSeconds < 15)
                     {
-                        // Realiza operações matemáticas intensivas
                         double result = 0;
                         for (int j = 0; j < 1000000; j++)
                         {
@@ -317,12 +322,14 @@ namespace SysCore
 
             Task.WaitAll(tasks.ToArray());
             stopwatch.Stop();
-
-            // Calcula a pontuação baseada no tempo e número de operações
+            //
+            // pontuação baseada no tempo e número de operações
+            //
             double cpuScore = (numThreads * 1000000 * 15) / stopwatch.Elapsed.TotalSeconds;
             SaveBenchmarkResults(cpuScore, 0);
-
-            // Exibe o resultado final
+            //
+            // resultado final
+            //
             this.Invoke((MethodInvoker)delegate
             {
                 MessageBox.Show(
@@ -339,7 +346,6 @@ namespace SysCore
 
         private void RunGPUStressTest(CancellationToken cancellationToken)
         {
-            // Cria um formulário com um PictureBox para renderização
             using (var form = new Form())
             {
                 form.Size = new Size(800, 600);
@@ -356,8 +362,9 @@ namespace SysCore
 
                 var stopwatch = new System.Diagnostics.Stopwatch();
                 stopwatch.Start();
-
-                // Inicia a renderização
+                //
+                // start
+                //
                 form.Show();
                 int frameCount = 0;
 
@@ -366,9 +373,7 @@ namespace SysCore
                     Bitmap bitmap = new Bitmap(800, 600);
                     using (var g = Graphics.FromImage(bitmap))
                     {
-                        // Preenche o fundo com preto
                         g.Clear(Color.Black);
-                        // Desenha formas geométricas aleatórias
                         var random = new Random();
                         for (int i = 0; i < 1000; i++)
                         {
@@ -386,7 +391,6 @@ namespace SysCore
                         }
                     }
 
-                    // Atualiza o PictureBox na thread da UI
                     form.Invoke((MethodInvoker)delegate
                     {
                         if (pictureBox.Image != null)
@@ -400,12 +404,14 @@ namespace SysCore
 
                 stopwatch.Stop();
                 form.Close();
-
-                // Calcula a pontuação baseada no FPS
+                //
+                // pontuação baseada no FPS
+                //
                 double gpuScore = frameCount / stopwatch.Elapsed.TotalSeconds;
                 SaveBenchmarkResults(0, gpuScore);
-
-                // Exibe o resultado final
+                //
+                // resultado final
+                //
                 this.Invoke((MethodInvoker)delegate
                 {
                     MessageBox.Show(
@@ -441,15 +447,17 @@ namespace SysCore
                             writer.WriteLine("=== SysCore Logs ===");
                             writer.WriteLine($"Data e Hora: {DateTime.Now}");
                             writer.WriteLine();
-
-                            // Adiciona informações do sistema
+                            //
+                            // LOGS - informações do sistema
+                            //
                             writer.WriteLine("=== Informações do Sistema ===");
                             writer.WriteLine($"Sistema Operacional: {Environment.OSVersion}");
                             writer.WriteLine($"Processador: {Environment.ProcessorCount} núcleos");
                             writer.WriteLine($"Memória Total: {GetTotalPhysicalMemory() / (1024 * 1024)} MB");
                             writer.WriteLine();
-
-                            // Adiciona resultados de benchmark se disponíveis
+                            //
+                            // LOGS - resultados de benchmark
+                            //
                             if (File.Exists("benchmark_results.txt"))
                             {
                                 writer.WriteLine("=== Resultados de Benchmark ===");
@@ -460,8 +468,9 @@ namespace SysCore
                                 }
                                 writer.WriteLine();
                             }
-
-                            // Adiciona resultados de teste de rede se disponíveis
+                            //
+                            // LOGS - resultados de rede
+                            //
                             if (File.Exists("network_test_results.txt"))
                             {
                                 writer.WriteLine("=== Resultados de Teste de Rede ===");
@@ -502,7 +511,7 @@ namespace SysCore
                 {
                     foreach (var obj in searcher.Get())
                     {
-                        return Convert.ToInt64(obj["TotalVisibleMemorySize"]) * 1024; // Convertendo KB para bytes
+                        return Convert.ToInt64(obj["TotalVisibleMemorySize"]) * 1024;
                     }
                 }
             }
@@ -606,11 +615,12 @@ namespace SysCore
         private void RunNetworkSpeedTest(CancellationToken cancellationToken)
         {
             try
-            {
-                // URLs para teste de velocidade
+            {   //
+                // teste de rede
+                //
                 string[] downloadUrls = new string[]
                 {
-                    "https://speed.cloudflare.com/__down?bytes=25000000", // 25MB
+                    "https://speed.cloudflare.com/__down?bytes=25000000",
                     "https://speed.cloudflare.com/__down?bytes=25000000",
                     "https://speed.cloudflare.com/__down?bytes=25000000"
                 };
@@ -622,7 +632,7 @@ namespace SysCore
                     "https://speed.cloudflare.com/__up"
                 };
 
-                // Teste de Download
+                // download
                 double totalDownloadSpeed = 0;
                 int downloadTests = 0;
 
@@ -637,11 +647,10 @@ namespace SysCore
                         var endTime = DateTime.Now;
 
                         var duration = (endTime - startTime).TotalSeconds;
-                        var speedMbps = (data.Length * 8) / (duration * 1000000.0); // Convertendo para Mbps
+                        var speedMbps = (data.Length * 8) / (duration * 1000000.0);
                         totalDownloadSpeed += speedMbps;
                         downloadTests++;
 
-                        // Atualiza o progresso na thread principal
                         this.Invoke((MethodInvoker)delegate
                         {
                             WifiTest_Button.Text = $"Download: {speedMbps:F2} Mbps";
@@ -651,7 +660,7 @@ namespace SysCore
 
                 double avgDownloadSpeed = totalDownloadSpeed / downloadTests;
 
-                // Teste de Upload
+                // upload
                 double totalUploadSpeed = 0;
                 int uploadTests = 0;
 
@@ -661,7 +670,6 @@ namespace SysCore
 
                     using (var client = new WebClient())
                     {
-                        // Cria um array de bytes para upload (1MB)
                         byte[] data = new byte[1024 * 1024];
                         new Random().NextBytes(data);
 
@@ -670,11 +678,10 @@ namespace SysCore
                         var endTime = DateTime.Now;
 
                         var duration = (endTime - startTime).TotalSeconds;
-                        var speedMbps = (data.Length * 8) / (duration * 1000000.0); // Convertendo para Mbps
+                        var speedMbps = (data.Length * 8) / (duration * 1000000.0);
                         totalUploadSpeed += speedMbps;
                         uploadTests++;
 
-                        // Atualiza o progresso na thread principal
                         this.Invoke((MethodInvoker)delegate
                         {
                             WifiTest_Button.Text = $"Upload: {speedMbps:F2} Mbps";
@@ -684,10 +691,8 @@ namespace SysCore
 
                 double avgUploadSpeed = totalUploadSpeed / uploadTests;
 
-                // Salvar resultados do teste de rede
                 SaveNetworkTestResults(avgDownloadSpeed, avgUploadSpeed);
 
-                // Exibe o resultado final
                 this.Invoke((MethodInvoker)delegate
                 {
                     MessageBox.Show(
@@ -740,5 +745,18 @@ namespace SysCore
         {
 
         }
+
+        private void PanelSobre_Config_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
+
+//  ######   ####     ##  ##   ######   #####
+//  ##       ## ##    ##  ##       ##   ##  ##
+//  ##       ##  ##   ##  ##      ##    ##  ##
+//  ####     ##  ##   ##  ##     ##     #####
+//  ##       ##  ##   ##  ##    ##      ##
+//  ##       ## ##    ##  ##   ##       ##
+//  ######   ####      ####    ######   ##

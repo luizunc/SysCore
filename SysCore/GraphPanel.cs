@@ -1,3 +1,11 @@
+//  ######   ####     ##  ##   ######   #####
+//  ##       ## ##    ##  ##       ##   ##  ##
+//  ##       ##  ##   ##  ##      ##    ##  ##
+//  ####     ##  ##   ##  ##     ##     #####
+//  ##       ##  ##   ##  ##    ##      ##
+//  ##       ## ##    ##  ##   ##       ##
+//  ######   ####      ####    ######   ##
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,7 +20,7 @@ namespace SysCore
         private List<float> ramValues;
         private List<float> gpuValues;
         private Timer updateTimer;
-        private const int MAX_POINTS = 60;
+        private const int MAX_POINTS = 100;
         private Color cpuColor = Color.Cyan;
         private Color gpuColor = Color.Lime;
         private Color ramColor = Color.Yellow;
@@ -47,11 +55,10 @@ namespace SysCore
 
             var width = this.Width;
             var height = this.Height;
-            var padding = 10;
+            var padding = 8;
             int points = cpuValues.Count;
-            float xStep = (float)(width - 2 * padding) / (MAX_POINTS - 1);
+            float xStep = (float)(width - 2 * padding) / (MAX_POINTS - 1) * 0.4f;
 
-            // Espaçamento vertical para as 3 linhas
             float bandHeight = (height - 2 * padding) / 3f;
             float cpuOffset = 0;
             float gpuOffset = bandHeight;
@@ -60,7 +67,7 @@ namespace SysCore
             void DrawLine(List<float> values, Color color, float yOffset)
             {
                 if (values.Count < 2) return;
-                using (var pen = new Pen(color, 2.5f))
+                using (var pen = new Pen(color, 2.0f))
                 {
                     for (int i = 1; i < values.Count; i++)
                     {
@@ -107,7 +114,7 @@ namespace SysCore
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GraphPanel));
             this.SuspendLayout();
             // 
-            // GraphPanel
+            // graphpanel
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -117,3 +124,11 @@ namespace SysCore
         }
     }
 } 
+
+//  ######   ####     ##  ##   ######   #####
+//  ##       ## ##    ##  ##       ##   ##  ##
+//  ##       ##  ##   ##  ##      ##    ##  ##
+//  ####     ##  ##   ##  ##     ##     #####
+//  ##       ##  ##   ##  ##    ##      ##
+//  ##       ## ##    ##  ##   ##       ##
+//  ######   ####      ####    ######   ##

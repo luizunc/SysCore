@@ -38,6 +38,10 @@
             this.PropriedadesButton = new Guna.UI2.WinForms.Guna2Button();
             this.CloseConfig_button = new Guna.UI2.WinForms.Guna2ImageButton();
             this.PanelGeral_Config = new Guna.UI2.WinForms.Guna2Panel();
+            this.BuscarErrosButton = new Guna.UI2.WinForms.Guna2Button();
+            this.BuscarErrosLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.UpdateCombo = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.UpdateLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.PanelSobre_Config = new Guna.UI2.WinForms.Guna2Panel();
             this.GitHubRed_Button = new Guna.UI2.WinForms.Guna2Button();
             this.GitHubRed_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -45,10 +49,6 @@
             this.Professor_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.Integrantes_ComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.Integrantes_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.BuscarErrosButton = new Guna.UI2.WinForms.Guna2Button();
-            this.BuscarErrosLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.UpdateCombo = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.UpdateLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.PanelMonitoramento_Config = new Guna.UI2.WinForms.Guna2Panel();
             this.SelectColor_Label = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ButonColorWheel = new Guna.UI2.WinForms.Guna2Button();
@@ -209,6 +209,63 @@
             this.PanelGeral_Config.Size = new System.Drawing.Size(320, 288);
             this.PanelGeral_Config.TabIndex = 12;
             // 
+            // BuscarErrosButton
+            // 
+            this.BuscarErrosButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BuscarErrosButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BuscarErrosButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BuscarErrosButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BuscarErrosButton.FillColor = System.Drawing.Color.White;
+            this.BuscarErrosButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.BuscarErrosButton.ForeColor = System.Drawing.Color.Black;
+            this.BuscarErrosButton.Location = new System.Drawing.Point(177, 24);
+            this.BuscarErrosButton.Name = "BuscarErrosButton";
+            this.BuscarErrosButton.Size = new System.Drawing.Size(140, 36);
+            this.BuscarErrosButton.TabIndex = 3;
+            this.BuscarErrosButton.Text = "Verificar Erros";
+            // 
+            // BuscarErrosLabel
+            // 
+            this.BuscarErrosLabel.BackColor = System.Drawing.Color.Transparent;
+            this.BuscarErrosLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BuscarErrosLabel.ForeColor = System.Drawing.Color.White;
+            this.BuscarErrosLabel.Location = new System.Drawing.Point(177, 0);
+            this.BuscarErrosLabel.Name = "BuscarErrosLabel";
+            this.BuscarErrosLabel.Size = new System.Drawing.Size(80, 18);
+            this.BuscarErrosLabel.TabIndex = 2;
+            this.BuscarErrosLabel.Text = "Buscar Erros";
+            // 
+            // UpdateCombo
+            // 
+            this.UpdateCombo.BackColor = System.Drawing.Color.Transparent;
+            this.UpdateCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.UpdateCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.UpdateCombo.FocusedColor = System.Drawing.Color.Black;
+            this.UpdateCombo.FocusedState.BorderColor = System.Drawing.Color.Black;
+            this.UpdateCombo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.UpdateCombo.ForeColor = System.Drawing.Color.Black;
+            this.UpdateCombo.ItemHeight = 30;
+            this.UpdateCombo.Items.AddRange(new object[] {
+            "Diariamente",
+            "Semanalmente",
+            "Mensalmente"});
+            this.UpdateCombo.Location = new System.Drawing.Point(15, 24);
+            this.UpdateCombo.Name = "UpdateCombo";
+            this.UpdateCombo.Size = new System.Drawing.Size(140, 36);
+            this.UpdateCombo.StartIndex = 0;
+            this.UpdateCombo.TabIndex = 1;
+            // 
+            // UpdateLabel
+            // 
+            this.UpdateLabel.BackColor = System.Drawing.Color.Transparent;
+            this.UpdateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdateLabel.ForeColor = System.Drawing.Color.White;
+            this.UpdateLabel.Location = new System.Drawing.Point(15, 0);
+            this.UpdateLabel.Name = "UpdateLabel";
+            this.UpdateLabel.Size = new System.Drawing.Size(128, 18);
+            this.UpdateLabel.TabIndex = 0;
+            this.UpdateLabel.Text = "Buscar Atualizações:";
+            // 
             // PanelSobre_Config
             // 
             this.PanelSobre_Config.Controls.Add(this.GitHubRed_Button);
@@ -222,6 +279,7 @@
             this.PanelSobre_Config.Size = new System.Drawing.Size(320, 288);
             this.PanelSobre_Config.TabIndex = 14;
             this.PanelSobre_Config.Visible = false;
+            this.PanelSobre_Config.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelSobre_Config_Paint);
             // 
             // GitHubRed_Button
             // 
@@ -313,63 +371,6 @@
             this.Integrantes_Label.Size = new System.Drawing.Size(72, 18);
             this.Integrantes_Label.TabIndex = 0;
             this.Integrantes_Label.Text = "Integrantes:";
-            // 
-            // BuscarErrosButton
-            // 
-            this.BuscarErrosButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BuscarErrosButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BuscarErrosButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BuscarErrosButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BuscarErrosButton.FillColor = System.Drawing.Color.White;
-            this.BuscarErrosButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.BuscarErrosButton.ForeColor = System.Drawing.Color.Black;
-            this.BuscarErrosButton.Location = new System.Drawing.Point(177, 24);
-            this.BuscarErrosButton.Name = "BuscarErrosButton";
-            this.BuscarErrosButton.Size = new System.Drawing.Size(140, 36);
-            this.BuscarErrosButton.TabIndex = 3;
-            this.BuscarErrosButton.Text = "Verificar Erros";
-            // 
-            // BuscarErrosLabel
-            // 
-            this.BuscarErrosLabel.BackColor = System.Drawing.Color.Transparent;
-            this.BuscarErrosLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BuscarErrosLabel.ForeColor = System.Drawing.Color.White;
-            this.BuscarErrosLabel.Location = new System.Drawing.Point(177, 0);
-            this.BuscarErrosLabel.Name = "BuscarErrosLabel";
-            this.BuscarErrosLabel.Size = new System.Drawing.Size(80, 18);
-            this.BuscarErrosLabel.TabIndex = 2;
-            this.BuscarErrosLabel.Text = "Buscar Erros";
-            // 
-            // UpdateCombo
-            // 
-            this.UpdateCombo.BackColor = System.Drawing.Color.Transparent;
-            this.UpdateCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.UpdateCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.UpdateCombo.FocusedColor = System.Drawing.Color.Black;
-            this.UpdateCombo.FocusedState.BorderColor = System.Drawing.Color.Black;
-            this.UpdateCombo.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.UpdateCombo.ForeColor = System.Drawing.Color.Black;
-            this.UpdateCombo.ItemHeight = 30;
-            this.UpdateCombo.Items.AddRange(new object[] {
-            "Diariamente",
-            "Semanalmente",
-            "Mensalmente"});
-            this.UpdateCombo.Location = new System.Drawing.Point(15, 24);
-            this.UpdateCombo.Name = "UpdateCombo";
-            this.UpdateCombo.Size = new System.Drawing.Size(140, 36);
-            this.UpdateCombo.StartIndex = 0;
-            this.UpdateCombo.TabIndex = 1;
-            // 
-            // UpdateLabel
-            // 
-            this.UpdateLabel.BackColor = System.Drawing.Color.Transparent;
-            this.UpdateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UpdateLabel.ForeColor = System.Drawing.Color.White;
-            this.UpdateLabel.Location = new System.Drawing.Point(15, 0);
-            this.UpdateLabel.Name = "UpdateLabel";
-            this.UpdateLabel.Size = new System.Drawing.Size(128, 18);
-            this.UpdateLabel.TabIndex = 0;
-            this.UpdateLabel.Text = "Buscar Atualizações:";
             // 
             // PanelMonitoramento_Config
             // 

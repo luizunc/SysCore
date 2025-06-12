@@ -1,4 +1,12 @@
-﻿using System;
+﻿//  ######   ####     ##  ##   ######   #####
+//  ##       ## ##    ##  ##       ##   ##  ##
+//  ##       ##  ##   ##  ##      ##    ##  ##
+//  ####     ##  ##   ##  ##     ##     #####
+//  ##       ##  ##   ##  ##    ##      ##
+//  ##       ## ##    ##  ##   ##       ##
+//  ######   ####      ####    ######   ##
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,8 +38,9 @@ namespace SysCore
         private static extern bool DeleteDC(IntPtr hdc);
         [DllImport("dxgi.dll", SetLastError = true)]
         private static extern int CreateDXGIFactory(ref Guid riid, out IntPtr ppFactory);
-
-        // --- D3DKMTQueryStatistics Structures and P/Invoke ---
+        //
+        // D3DKMT
+        //
         public enum D3DKMT_QUERYSTATISTICS_TYPE
         {
             D3DKMT_QUERYSTATISTICS_ADAPTER = 0,
@@ -52,20 +61,21 @@ namespace SysCore
             public uint AdapterLuidHighPart;
             public uint NodeId;
             public uint PhysicalAdapterIndex;
-            // O restante dos campos não será usado neste exemplo simplificado
         }
 
         [DllImport("gdi32.dll", SetLastError = true)]
         public static extern int D3DKMTQueryStatistics(ref D3DKMT_QUERYSTATISTICS stats);
-        // --- Fim das estruturas ---
-
+        //
+        // fim D3DKMT 
+        //
         public SysCore_Form()
         {
             configForm = new Config();
             InitializeComponent();
             info_cpu();
-            
-            // Exibir nome da GPU (integrada ou dedicada)
+            //
+            // GPU (integrada ou dedicada)
+            //
             try
             {
                 var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_VideoController");
@@ -79,8 +89,9 @@ namespace SysCore
                 }
             }
             catch { gpu.Text = "Não reconhecida"; }
-
-            // Exibir nome do Disco
+            //
+            // Disk
+            //
             try
             {
                 var searcher = new ManagementObjectSearcher("SELECT Model FROM Win32_DiskDrive");
@@ -94,8 +105,9 @@ namespace SysCore
                 }
             }
             catch { disco.Text = "Não reconhecido"; }
-
-            // Garantir propriedades corretas do CircleProgressBar
+            //
+            // progressBar - Andromeda, skruuulll
+            //
             CpuPG_Circle.Minimum = 0;
             CpuPG_Circle.Maximum = 100;
             CpuPG_Circle.Value = 0;
@@ -107,22 +119,25 @@ namespace SysCore
             CpuPG_Circle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             CpuPG_Circle.ForeColor = Color.White;
             CpuPG_Circle.UseTransparentBackground = false;
-
-            // Inicializar o contador de CPU
+            //
+            // cpu counter
+            //
             statuscpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-            statuscpu.NextValue(); // Primeira leitura sempre retorna 0
-            
-            // Inicializar os contadores de Disco
+            statuscpu.NextValue(); 
+            //
+            // disk counter
+            //
             statusdisk = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
             statusdiskRead = new PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec", "_Total");
             statusdiskWrite = new PerformanceCounter("PhysicalDisk", "Disk Write Bytes/sec", "_Total");
             statusdisk.NextValue();
             statusdiskRead.NextValue();
             statusdiskWrite.NextValue();
-
-            // Configurar o timer para atualização em tempo real
+            //
+            // update in real time
+            //
             Timer attAll = new Timer();
-            attAll.Interval = 1000; // Atualizar a cada 1 segundo
+            attAll.Interval = 1000;
             attAll.Tick += update_all;
             attAll.Start();
 
@@ -209,7 +224,7 @@ namespace SysCore
                         else if (sensor.SensorType == SensorType.Temperature && sensor.Value.HasValue)
                             cpuTemp = sensor.Value.Value;
                         else if (sensor.SensorType == SensorType.Clock && sensor.Value.HasValue)
-                            cpuClock = Math.Max(cpuClock, sensor.Value.Value / 1000f); // GHz
+                            cpuClock = Math.Max(cpuClock, sensor.Value.Value / 1000f); 
                         else if (sensor.SensorType == SensorType.Power && sensor.Value.HasValue)
                             cpuPower = sensor.Value.Value;
                     }
@@ -222,7 +237,9 @@ namespace SysCore
             CpuPG_Circle.ProgressColor2 = Color.Red;
             CpuPG_Circle.FillColor = Color.Green;
             CpuPG_Circle.Invalidate();
-            // Aqui você pode atualizar labels de temperatura, clock e consumo se desejar
+            //
+            // escalável
+            //
         }
 
         private void update_ram()
@@ -256,7 +273,7 @@ namespace SysCore
             {
                 float read = statusdiskRead.NextValue();
                 float write = statusdiskWrite.NextValue();
-                float mbps = (read + write) / (1024 * 1024); // MB/s
+                float mbps = (read + write) / (1024 * 1024);
                 int percent = (int)Math.Min(statusdisk.NextValue(), 100);
                 DiskPG_Circle.Value = percent;
                 DiskPG_Circle.Text = $"{mbps:F1} MB/s";
@@ -300,7 +317,9 @@ namespace SysCore
             GpuPG_Circle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             GpuPG_Circle.ForeColor = Color.White;
             GpuPG_Circle.Invalidate();
-            // Aqui você pode atualizar labels de temperatura e consumo se desejar
+            //
+            // escalável
+            //
         }
 
         private float GetGpuUsageDxgi()
@@ -332,7 +351,9 @@ namespace SysCore
         {
 
         }
-
+        //
+        // se você está mexendo sem ter noção, isto abaixo é fundamental para o design principal.
+        //
         private void CentralizarLabels()
         {
             // CPU
@@ -347,11 +368,13 @@ namespace SysCore
             gpu.Left = GpuPG_Circle.Left + (GpuPG_Circle.Width - gpu.Width) / 2;
             gpu.Top = GpuPG_Circle.Top - gpu.Height - 5;
 
-            // DISCO
+            // DISK
             disco.Left = DiskPG_Circle.Left + (DiskPG_Circle.Width - disco.Width) / 2;
             disco.Top = DiskPG_Circle.Top - disco.Height - 5;
         }
-
+        //
+        // emptys
+        //
         private void gpu_Click(object sender, EventArgs e)
         {
 
@@ -401,3 +424,11 @@ namespace SysCore
         }
     }
 }
+
+//  ######   ####     ##  ##   ######   #####
+//  ##       ## ##    ##  ##       ##   ##  ##
+//  ##       ##  ##   ##  ##      ##    ##  ##
+//  ####     ##  ##   ##  ##     ##     #####
+//  ##       ##  ##   ##  ##    ##      ##
+//  ##       ## ##    ##  ##   ##       ##
+//  ######   ####      ####    ######   ##
