@@ -218,7 +218,7 @@ namespace SysCore
         {
             if (isStressTestRunning)
             {
-                var result = MessageBox.Show("Deseja cancelar o teste de stress da CPU?", 
+                var result = MessageBox.Show("Deseja cancelar o teste de stress da CPU?",
                     "Cancelar Teste", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -229,7 +229,7 @@ namespace SysCore
                 return;
             }
 
-            var startResult = MessageBox.Show("O teste de stress da CPU pode causar lentidão no sistema. Deseja continuar?", 
+            var startResult = MessageBox.Show("O teste de stress da CPU pode causar lentidão no sistema. Deseja continuar?",
                 "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (startResult == DialogResult.Yes)
@@ -260,7 +260,7 @@ namespace SysCore
         {
             if (isStressTestRunning)
             {
-                var result = MessageBox.Show("Deseja cancelar o teste de stress da GPU?", 
+                var result = MessageBox.Show("Deseja cancelar o teste de stress da GPU?",
                     "Cancelar Teste", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -271,7 +271,7 @@ namespace SysCore
                 return;
             }
 
-            var startResult = MessageBox.Show("O teste de stress da GPU pode causar lentidão no sistema. Deseja continuar?", 
+            var startResult = MessageBox.Show("O teste de stress da GPU pode causar lentidão no sistema. Deseja continuar?",
                 "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (startResult == DialogResult.Yes)
@@ -536,7 +536,7 @@ namespace SysCore
         {
             if (isNetworkTestRunning)
             {
-                var result = MessageBox.Show("Deseja cancelar o teste de rede?", 
+                var result = MessageBox.Show("Deseja cancelar o teste de rede?",
                     "Cancelar Teste", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -547,7 +547,7 @@ namespace SysCore
                 return;
             }
 
-            var startResult = MessageBox.Show("O teste de rede irá medir a velocidade de download e upload. Deseja continuar?", 
+            var startResult = MessageBox.Show("O teste de rede irá medir a velocidade de download e upload. Deseja continuar?",
                 "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (startResult == DialogResult.Yes)

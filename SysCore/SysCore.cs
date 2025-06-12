@@ -123,7 +123,7 @@ namespace SysCore
             // cpu counter
             //
             statuscpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-            statuscpu.NextValue(); 
+            statuscpu.NextValue();
             //
             // disk counter
             //
@@ -224,7 +224,7 @@ namespace SysCore
                         else if (sensor.SensorType == SensorType.Temperature && sensor.Value.HasValue)
                             cpuTemp = sensor.Value.Value;
                         else if (sensor.SensorType == SensorType.Clock && sensor.Value.HasValue)
-                            cpuClock = Math.Max(cpuClock, sensor.Value.Value / 1000f); 
+                            cpuClock = Math.Max(cpuClock, sensor.Value.Value / 1000f);
                         else if (sensor.SensorType == SensorType.Power && sensor.Value.HasValue)
                             cpuPower = sensor.Value.Value;
                     }

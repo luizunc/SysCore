@@ -1,12 +1,4 @@
-﻿//  ######   ####     ##  ##   ######   #####
-//  ##       ## ##    ##  ##       ##   ##  ##
-//  ##       ##  ##   ##  ##      ##    ##  ##
-//  ####     ##  ##   ##  ##     ##     #####
-//  ##       ##  ##   ##  ##    ##      ##
-//  ##       ## ##    ##  ##   ##       ##
-//  ######   ####      ####    ######   ##
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +9,7 @@ namespace SysCore
     internal static class Program
     {
         /// <summary>
-        /// entrada principal
+        /// Ponto de entrada principal para o aplicativo.
         /// </summary>
         [STAThread]
         static void Main()
@@ -28,11 +20,3 @@ namespace SysCore
         }
     }
 }
-
-//  ######   ####     ##  ##   ######   #####
-//  ##       ## ##    ##  ##       ##   ##  ##
-//  ##       ##  ##   ##  ##      ##    ##  ##
-//  ####     ##  ##   ##  ##     ##     #####
-//  ##       ##  ##   ##  ##    ##      ##
-//  ##       ## ##    ##  ##   ##       ##
-//  ######   ####      ####    ######   ##

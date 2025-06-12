@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
 [assembly: AssemblyTitle("SysCore")]
-[assembly: AssemblyDescription("Projeto universitário criado para o monitoramento em tempo real do uso de hardware.")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Nenhuma.")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SysCore")]
-[assembly: AssemblyCopyright("Copyright ©  2025  | eduzp")]
-[assembly: AssemblyTrademark("eduzp | DEV")]
+[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Definir ComVisible como false torna os tipos neste assembly invisíveis
