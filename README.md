@@ -34,15 +34,21 @@ Desenvolver uma aplicação simples e eficiente capaz de monitorar em tempo real
 
 - **C#**
 - **GUNA UI**
-<<<<<<< HEAD
-- **.NET FRAMEWORK**
-- **WMI**
-=======
 - **.NET Framework 4.8**
-- **WMI** 
-- **OpenHardwareMonitorLib** 
-- **HidLibrary** 
-- **ILMerge** 
->>>>>>> 32f19e22093e2fc9e10c4e228c05abaea2b19990
+- **WMI**
+- **OpenHardwareMonitorLib**
+- **HidLibrary**
+- **ILMerge**
 
 ## 🚀 Como Executar
+
+1. Clone o repositório
+2. Abra a solução `SysCore.sln` no Visual Studio
+3. Restaure os pacotes NuGet
+4. Compile e execute o projeto
+
+## 📋 Requisitos
+
+- Windows 10 ou superior
+- .NET Framework 4.8
+- Visual Studio 2019 ou superior (para desenvolvimento)
